@@ -19,9 +19,18 @@ augroup ov_autocommand
   autocmd!
   autocmd BufWritePre *.obl call OV_Main(0)
   autocmd BufWritePost *.obl call OV_Main(1)
-  autocmd TextChanged *.obl call UpdateSignsNV()
-  autocmd TextChangedI *.obl call UpdateSignsNV()
+  autocmd TextChanged *.obl call OV_Main(0)
+  autocmd TextChangedI *.obl call OV_Main(0)
 augroup END
+
+" TODO make these mappings not suck ass
+let maplocalleader = "<C-a>"
+nnoremap <buffer> <C-a>en :call JumpSign('error','next')<CR>
+nnoremap <buffer> <C-a>ep :call JumpSign('error','prev')<CR>
+nnoremap <buffer> <C-a>in :call JumpSign('info','next')<CR>
+nnoremap <buffer> <C-a>ip :call JumpSign('info','prev')<CR>
+nnoremap <buffer> <C-a>n :call JumpSign('all','next')<CR>
+nnoremap <buffer> <C-a>p :call JumpSign('all','prev')<CR>
 
 " Sign function {{{
 function OV_Sign(timer)
@@ -182,20 +191,107 @@ endfunction
 " Jump to sign {{{
 function! JumpSign(type, direction)
   " get the list of signs 
-  let err_signs = GetSignsNV('error', 0)
-  let info_signs = GetSignsNV('info', 0)
+  let err_signs = GetSigns('error', 0)
+  let info_signs = GetSigns('info', 0)
 
   let signs = []
   for sign in err_signs
     let signs = add(signs, sign)
   endfor
   for sign in info_signs
-    let signs = add(signs, sign)
+    let all_signs = add(signs, sign)
   endfor
-  call sort(signs, 'n')
+  call sort(all_signs, 'n')
 
-  " get current line
   let curr_line = line('.')
+  
+  " get sign type
+  if a:type ==? 'error'
+    let l:sign_len = len(err_signs)
+    let signs = err_signs
+  elseif a:type ==? 'info'
+    let l:sign_len = len(info_signs)
+    let signs = info_signs
+  elseif a:type ==? 'all'
+    let l:sign_len = len(signs)
+    let signs = all_signs
+  endif
+
+  let match = index(signs, curr_line)
+  " we aren't on a sign
+  if match ==? -1
+
+    " case 1: line # < first sign
+      " for next: jump to first sign
+      " for prev: jump to last sign 
+    " case 2: sign < line < sign 
+      " next: jump to sign that's bigger
+      " prev: jump to sign that's smaller
+    " case 3: line > last sign 
+      " next: jump to first sign 
+      " prev: jump to last sign
+      
+    " case 1: {{{
+    if curr_line <? get(signs, 0, 'default')
+      if a:direction ==? 'next'
+        let jump = get(signs, 0, 'default')
+      elseif a:direction ==? 'prev'
+        let jump = get(signs, (l:sign_len - 1), 'default')
+      endif
+    " }}}
+    " case 3: {{{
+    elseif curr_line >? get(signs, (l:sign_len - 1), 'default')
+      if a:direction ==? 'next'
+        let jump = get(signs, 0, 'default')
+      elseif a:direction ==? 'prev'
+        let jump = get(signs, (l:sign_len - 1), 'default')
+      endif
+    " }}}
+    " case 2: {{{
+    else 
+      let i = 0
+      while i <? l:sign_len
+        " we have passed from the signs being less than
+        " the current line
+        let l:sign_line = get(signs, i, 'default')
+        if curr_line <? l:sign_line
+          if a:direction ==? 'next'
+            let jump = get(signs, (i), 'default')
+            break
+          elseif a:direction ==? 'prev'
+            let jump = get(signs, (i - 1), 'default')
+            break
+          endif
+        endif 
+        let i += 1 
+      endwhile
+    " }}}
+    endif
+
+  execute jump
+  else
+  " we are on a sign
+
+    if a:direction ==? 'next'
+      " if match is the last then jump to first
+      if match ==? (l:sign_len - 1)
+        let jump = get(signs, (0), 'default') 
+      " else just iterate
+      else
+        let jump = get(signs, (match + 1), 'default') 
+      endif
+    elseif a:direction ==? 'prev'
+      " if match is first then jump to first
+      if match ==? 0
+        let jump = get(signs, (l:sign_len - 1), 'default') 
+      " else just iterate
+      else
+        let jump = get(signs, (match - 1), 'default') 
+      endif
+    endif
+    execute jump
+
+  endif
 
 endfunction
 " }}}
