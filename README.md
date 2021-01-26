@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Obli-Vim - A Vim/NeoVim plugin for Oblivion based script development
 
 NeoVim/Vim plugin for Oblivion's obscript with integration into Construction Set Extender ScriptSync using pure Vimscript
@@ -58,3 +59,9 @@ Global options       | Description                                  | Default   
 
 # License
 GPL v3
+=======
+# Obli-Vim
+NeoVim/Vim plugin for Oblivion's obscript with integration into CSE ScriptSync
+
+Currently provided as is
+>>>>>>> origin/main
