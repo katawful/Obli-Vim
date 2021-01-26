@@ -1,11 +1,12 @@
-" Look for NeoVim support
+" Look for NeoVim support {{{
 if has('nvim')
   let g:ov_nvim_support = 1
 else
   let g:ov_nvim_support = 0
 endif
+" }}}
 
-" set default sync time
+" set default sync time {{{
 if !exists("g:ov_sync_time")
   let g:ov_sync_time = 3
 elseif g:ov_sync_time < 1 || type(g:ov_sync_time) == type(0.0)
@@ -14,7 +15,45 @@ elseif g:ov_sync_time < 1 || type(g:ov_sync_time) == type(0.0)
   echohl None
   let g:ov_sync_time = 3
 endif
+" }}}
 
+" set sign text defaults {{{
+if !exists("g:ov_error_sign")
+  let g:ov_error_sign = "=>"
+endif 
+if !exists("g:ov_info_sign")
+  let g:ov_info_sign = "=>"
+endif 
+" }}}
+
+" set sign jump maps defaults {{{
+if !exists("g:ov_JumpNextError")
+  let g:ov_JumpNextError = '<C-a>en'
+endif
+if !exists("g:ov_JumpPrevError")
+  let g:ov_JumpPrevError = '<C-a>ep'
+endif
+if !exists("g:ov_JumpNextInfo")
+  let g:ov_JumpNextInfo = '<C-a>in'
+endif
+if !exists("g:ov_JumpPrevInfo")
+  let g:ov_JumpPrevInfo = '<C-a>ip'
+endif
+if !exists("g:ov_JumpNextAll")
+  let g:ov_JumpNextAll = '<C-a>n'
+endif
+if !exists("g:ov_JumpPrevAll")
+  let g:ov_JumpPrevAll = '<C-a>p'
+endif
+execute 'nnoremap <buffer> ' . g:ov_JumpNextError . " :call JumpSign('error','next')<CR>"
+execute 'nnoremap <buffer> ' . g:ov_JumpPrevError . " :call JumpSign('error','prev')<CR>"
+execute 'nnoremap <buffer> ' . g:ov_JumpNextInfo . " :call JumpSign('info','next')<CR>"
+execute 'nnoremap <buffer> ' . g:ov_JumpPrevInfo . " :call JumpSign('info','prev')<CR>"
+execute 'nnoremap <buffer> ' . g:ov_JumpNextAll . " :call JumpSign('all','next')<CR>"
+execute 'nnoremap <buffer> ' . g:ov_JumpPrevAll . " :call JumpSign('all','prev')<CR>"
+" }}}
+
+" autocommands {{{
 augroup ov_autocommand
   autocmd!
   autocmd BufWritePre *.obl call OV_Main(0)
@@ -22,21 +61,12 @@ augroup ov_autocommand
   autocmd TextChanged *.obl call OV_Main(0)
   autocmd TextChangedI *.obl call OV_Main(0)
 augroup END
+" }}}
 
-" TODO make these mappings not suck ass
-let maplocalleader = "<C-a>"
-nnoremap <buffer> <C-a>en :call JumpSign('error','next')<CR>
-nnoremap <buffer> <C-a>ep :call JumpSign('error','prev')<CR>
-nnoremap <buffer> <C-a>in :call JumpSign('info','next')<CR>
-nnoremap <buffer> <C-a>ip :call JumpSign('info','prev')<CR>
-nnoremap <buffer> <C-a>n :call JumpSign('all','next')<CR>
-nnoremap <buffer> <C-a>p :call JumpSign('all','prev')<CR>
 
 " Sign function {{{
 function OV_Sign(timer)
-  if g:ov_nvim_support ==? 1
-    call AddSignNV()
-  endif
+  call AddSign()
   redraw
 endfunction
 " }}}
@@ -49,9 +79,7 @@ function! OV_Main(sign)
     return 0
   endif
   if a:sign ==? 0
-    if g:ov_nvim_support ==? 1
-      call UnSignNV()
-    endif
+    call UnSign()
     redraw
   elseif a:sign ==? 1
     " add timer so we don't read an unupdated log file
@@ -82,10 +110,9 @@ function! ShowCSLog()
 endfunction
 " }}}
 
-" Add sign - NeoVim support {{{
-function! AddSignNV()
-  " sign define test text=>> texthl=Error linehl=ErrorMsg
-  " sign place 3 line=3 name=test
+" Add sign {{{
+function! AddSign()
+
   let l:list = ParseLogFile()
   " define error sign for number of error
   let l:error = get(l:list, 0, 'default')
@@ -94,33 +121,34 @@ function! AddSignNV()
   for l:match in l:error
     if l:match !=? -1
       let l:sign_name = join(["Line", l:match], ":")
-      execute 'sign define ' . l:sign_name . ' text=>> texthl=Error linehl=ErrorMsg'
-      execute 'sign place ' . i . ' group=error line=' . l:match . ' name=' . l:sign_name
+      call sign_define(l:sign_name, {"text" : g:ov_error_sign, "texthl" : "Error"})
+      call sign_place(i, 'error', l:sign_name, "%", {'lnum' : l:match})
     endif
     let i += 1
   endfor
   for l:match in l:info
     if l:match !=? -1
       let l:sign_name = join(["Line", l:match], ":")
-      execute 'sign define ' . l:sign_name . ' text=>> texthl=Title'
-      execute 'sign place ' . i . ' group=info line=' . l:match . ' name=' . l:sign_name
+      call sign_define(l:sign_name, {"text" : g:ov_info_sign, "texthl" : "Title"})
+      call sign_place(i, 'info', l:sign_name, "%", {'lnum' : l:match})
     endif
     let i += 1
   endfor
 endfunction
 " }}}
 
-" Unsign - NeoVim support {{{
-function! UnSignNV()
-  sign unplace * group=error
-  sign unplace * group=info
+" Unsign {{{
+" NOTE: seems to work fine with vim syntax???
+function! UnSign()
+  call sign_unplace("*")
 endfunction
 " }}}
 
-" Update signs - NeoVim Support {{{
-function! UpdateSignsNV()
-  call UnSignNV()
-  call AddSignNV()
+" Update signs {{{
+" NOTE: unneeded????
+function! UpdateSigns()
+  call UnSign()
+  call AddSign()
 endfunction
 " }}}
 
@@ -178,46 +206,101 @@ function! GetSigns(type, line)
     let signs_dict = sign_getplaced(bufname("%"), {'group' : 'info'})
   endif
 
+
   " append the line number to the function
   for sign in signs_dict
     for num in sign.signs
       call add(list, num.lnum)
     endfor
   endfor
-  return list
+
+  " see if we got any signs
+  if get(list, 0, "empty") ==? "empty"
+    return 0
+  else
+    return list
+  endif
 endfunction
 " }}}
 
 " Jump to sign {{{
 function! JumpSign(type, direction)
-  " get the list of signs 
-  let err_signs = GetSigns('error', 0)
-  let info_signs = GetSigns('info', 0)
 
   let signs = []
-  for sign in err_signs
-    let signs = add(signs, sign)
-  endfor
-  for sign in info_signs
-    let all_signs = add(signs, sign)
-  endfor
-  call sort(all_signs, 'n')
 
   let curr_line = line('.')
   
   " get sign type
   if a:type ==? 'error'
+    let err_signs = GetSigns('error', 0)
+    if type(err_signs) ==? 0
+      echohl ErrorMsg
+      echo "Error: no signs available"
+      echohl None
+      let l:error = 0
+      return 0
+    else
+      let l:error = 1
+    endif
+
     let l:sign_len = len(err_signs)
     let signs = err_signs
+
   elseif a:type ==? 'info'
+    let info_signs = GetSigns('info', 0)
+    if type(info_signs) ==? 0
+      echohl ErrorMsg
+      echo "Error: no signs available"
+      echohl None
+      let l:info = 0
+      return 0
+    else
+      let l:info = 1
+    endif
+
     let l:sign_len = len(info_signs)
     let signs = info_signs
+
   elseif a:type ==? 'all'
+    let all_signs = []
+    let err_signs = GetSigns('error', 0)
+    if type(err_signs) ==? 0
+      let l:error = 0
+    else
+      let l:error = 1
+    endif
+    let info_signs = GetSigns('info', 0)
+    if type(info_signs) ==? 0
+      let l:info = 0
+    else
+      let l:info = 1
+    endif
+
+    " check if we have any signs
+    if l:error ==? 1
+      for sign in err_signs
+        let all_signs = add(signs, sign)
+      endfor
+    endif
+    if l:info ==? 1
+      for sign in info_signs
+        let all_signs = add(signs, sign)
+      endfor
+    endif
+
     let l:sign_len = len(signs)
+    call sort(all_signs, 'n')
     let signs = all_signs
+
+  else
+    echohl ErrorMsg
+    echo "Error: no signs available"
+    echohl None
+    return 0
   endif
 
   let match = index(signs, curr_line)
+  let l:sign_len = len(signs)
   " we aren't on a sign
   if match ==? -1
 
