@@ -1,7 +1,8 @@
 " Vim syntax file
 " Language: OBSE Script (OBSEScript)
 " Maintainer: Ulthar Seramis, Kat
-" Latest Revision: 22 June 2020
+" Latest Revision: 26, January 2021
+" License: This is provided as-is 
 
 if exists("b:current_syntax")
   finish
