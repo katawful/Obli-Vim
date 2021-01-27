@@ -117,6 +117,7 @@ function! AddSign()
   " define error sign for number of error
   let l:error = get(l:list, 0, 'default')
   let l:info = get(l:list, 1, 'default')
+  echo l:list
   let i = 0
   for l:match in l:error
     if l:match !=? -1
@@ -127,7 +128,7 @@ function! AddSign()
     let i += 1
   endfor
   for l:match in l:info
-    if l:match !=? -1
+    if l:match !=? -1 && l:match !=? 1
       let l:sign_name = join(["Line", l:match], ":")
       call sign_define(l:sign_name, {"text" : g:ov_info_sign, "texthl" : "Title"})
       call sign_place(i, 'info', l:sign_name, "%", {'lnum' : l:match})
