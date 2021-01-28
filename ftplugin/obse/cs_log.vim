@@ -17,6 +17,17 @@ elseif g:ov_sync_time < 1 || type(g:ov_sync_time) == type(0.0)
 endif
 " }}}
 
+" set default border style {{{
+if !exists("g:ov_window_style")
+  let g:ov_window_style = 'single'
+elseif g:ov_window_style !=? 'single' || g:ov_window_style !=? 'double'
+  echohl Error
+  echomsg "Error: g:ov_window_style is not a valid setting, setting to default value ('single')"
+  echohl None
+  let g:ov_window_style = 'single'
+endif
+" }}}
+
 " set sign text defaults {{{
 if !exists("g:ov_error_sign")
   let g:ov_error_sign = "=>"
@@ -186,6 +197,7 @@ function! ExtractLine()
   for l:line in l:file
     " find line with log info
     if match(l:line, l:curr_line, 8) >=? 1
+      let l:line = substitute(l:line, "\t", " ", 'g')
       return l:line
     endif
   endfor
@@ -193,7 +205,7 @@ endfunction
 " }}}
 
 " Floating window -- NeoVim Support {{{
-function! ShowFloatLogNV()
+function! ShowFloatLog()
   let l:list = ParseLogFile()
   let l:curr_line = line('.')
   let l:window_enable = 0
@@ -208,19 +220,39 @@ function! ShowFloatLogNV()
     endfor
   endfor 
   let l:matched_line = ExtractLine()
-  let l:width = strchars(l:matched_line) + 6
-  echo l:width
+  let l:width = strchars(l:matched_line)
 
   if l:window_enable ==? 1
-    " create a buffer as a script var so we know which one is created
-    let s:buf = nvim_create_buf(v:false,v:true)
-    call nvim_buf_set_lines(s:buf, 0, -1, v:true, [l:matched_line])
-    let opts = {'relative': 'cursor', 'width': l:width, 'height': 2, 'col': 1,
-        \ 'row': 1}
-    let win = nvim_open_win(s:buf, 0, opts)
-    " optional: change highlight, otherwise Pmenu is used
-    hi MyHighlight ctermbg=8 ctermfg=7
-    call nvim_win_set_option(win, 'winhl', 'Normal:MyHighlight')
+    if g:ov_nvim_support ==? 1
+      " set window opts
+      let opts = {
+            \'relative': 'cursor',
+            \'width': l:width+2,
+            \'height': 3,
+            \'col': 1,
+            \'row': 1, 
+            \'style': 'minimal'
+            \}
+      " set border styles
+      if g:ov_window_style ==? 'single'
+        let top = "╭" . repeat("─", l:width ) . "╮"
+        let mid = "│" . l:matched_line . "│"
+        let bot = "╰" . repeat("─", l:width ) . "╯"
+      elseif g:ov_window_style ==? 'double'
+        let top = "╔" . repeat("═", l:width ) . "╗"
+        let mid = "║" . l:matched_line . "║"
+        let bot = "╚" . repeat("═", l:width ) . "╝"
+      endif
+      let lines = [top] + [mid] + [bot]
+
+      " create a buffer as a script var so we know which one is created
+      let s:buf = nvim_create_buf(v:false,v:true)
+      call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+      let win = nvim_open_win(s:buf, v:false, opts)
+      hi LogWindowBackground ctermbg=8 ctermfg=15
+      call nvim_buf_set_option(s:buf, 'syntax', 'ob_log')
+      call nvim_win_set_option(win, 'winhl', 'Normal:LogWindowBackground')
+    endif
   endif
 endfunction
 " }}}

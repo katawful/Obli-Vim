@@ -2059,6 +2059,7 @@ if !exists("did_obse_inits")
   hi def link obseNames Label
   hi def link obseVariable Identifier
   hi def link obseReference Special
+  hi def link obseRepeat Repeat
 
   hi def link obseFunction Function
   hi def link skillAttribute String
