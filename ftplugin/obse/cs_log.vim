@@ -64,6 +64,13 @@ execute 'nnoremap <buffer> ' . g:ov_JumpNextAll . " :call JumpSign('all','next')
 execute 'nnoremap <buffer> ' . g:ov_JumpPrevAll . " :call JumpSign('all','prev')<CR>"
 " }}}
 
+" set show floating window defaults {{{
+if !exists("g:ov_ShowFloatLog")
+  let g:ov_ShowFloatLog = '<C-a>l'
+endif
+execute 'nnoremap <buffer> ' . g:ov_ShowFloatLog . " :call OV_Main(2)<CR>"
+" }}}
+
 " autocommands {{{
 augroup ov_autocommand
   autocmd!
@@ -86,15 +93,31 @@ endfunction
 function! OV_Main(sign)
   " I need to present the signs whenever the log file gets updated
   " use the sync time
-  if LogCheck() ==? 0
-    return 0
-  endif
   if a:sign ==? 0
-    call UnSign()
-    redraw
+    if LogCheck() ==? 0
+      return 0
+    else
+      call UnSign()
+      redraw
+    endif
   elseif a:sign ==? 1
     " add timer so we don't read an unupdated log file
-    let timer = timer_start(((g:ov_sync_time * 1000) + 50), 'OV_Sign')
+    if LogCheck() ==? 0
+      return 0
+    else
+      let timer = timer_start(((g:ov_sync_time * 1000) + 50), 'OV_Sign')
+    endif
+  " show log line
+  elseif a:sign ==? 2
+    if LogCheck() ==? 0
+      return 0
+    else
+      call ShowFloatLog()
+    endif
+  elseif a:sign ==? 3
+    if g:ov_nvim_support ==? 1
+      call CloseFloatLogNV()
+    endif
   endif
 
 endfunction
@@ -221,8 +244,19 @@ function! ShowFloatLog()
   endfor 
   let l:matched_line = ExtractLine()
   let l:width = strchars(l:matched_line)
+  let l:signs_exist = GetSigns('error', 0)
+  if type(l:signs_exist) ==? type(0)
+    let l:signs_exist = GetSigns('info', 0)
+    if type(l:signs_exist) ==? type(0)
+      let l:signs_exist = v:false
+    else
+      let l:signs_exist = v:true
+    endif
+  else
+    let l:signs_exist = v:true
+  endif 
 
-  if l:window_enable ==? 1
+  if l:window_enable ==? 1 && l:signs_exist ==? v:true
     if g:ov_nvim_support ==? 1
       " set window opts
       let opts = {
@@ -248,10 +282,23 @@ function! ShowFloatLog()
       " create a buffer as a script var so we know which one is created
       let s:buf = nvim_create_buf(v:false,v:true)
       call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-      let win = nvim_open_win(s:buf, v:false, opts)
+      let win = nvim_open_win(s:buf, v:true, opts)
       hi LogWindowBackground ctermbg=8 ctermfg=15
       call nvim_buf_set_option(s:buf, 'syntax', 'ob_log')
       call nvim_win_set_option(win, 'winhl', 'Normal:LogWindowBackground')
+      let win = win_getid(win)
+      call nvim_win_set_cursor(win, [2,4])
+
+      let keys = [
+            \'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+            \'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 
+            \'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 
+            \'y', 'z'
+            \ ]
+      for key in keys
+        call nvim_buf_set_keymap(s:buf, 'n', key, ':call OV_Main(3)<CR>', { 
+              \'noremap' : v:true, 'nowait' : v:true, 'silent' : v:true})
+      endfor
     endif
   endif
 endfunction
