@@ -83,6 +83,8 @@ augroup END
 
 
 " Sign function {{{
+" this exists so we can pass off sign creation to a timer
+" using sleep() stops vim from working
 function OV_Sign(timer)
   call AddSign()
   redraw
@@ -94,6 +96,8 @@ function! OV_Main(sign)
   " I need to present the signs whenever the log file gets updated
   " use the sync time
   if a:sign ==? 0
+    " NOTE: we add a logcheck for each one that needs it
+    " not sure if most efficient
     if LogCheck() ==? 0
       return 0
     else
@@ -124,6 +128,7 @@ endfunction
 " }}}
 
 " Show the log {{{
+" TODO: Delete???
 function! ShowCSLog()
     " open up log file and stuff
     if LogCheck() ==? 1
@@ -152,6 +157,7 @@ function! AddSign()
   let l:error = get(l:list, 0, 'default')
   let l:info = get(l:list, 1, 'default')
   let i = 0
+  " create a sign for each line with an matching message
   for l:match in l:error
     if l:match !=? -1
       let l:sign_name = join(["Line", l:match], ":")
@@ -172,33 +178,31 @@ endfunction
 " }}}
 
 " Unsign {{{
-" NOTE: seems to work fine with vim syntax???
 function! UnSign()
+  " unsign all signs
   call sign_unplace("*")
-endfunction
-" }}}
-
-" Update signs {{{
-" NOTE: unneeded????
-function! UpdateSigns()
-  call UnSign()
-  call AddSign()
 endfunction
 " }}}
 
 " Parse log file {{{
 function! ParseLogFile()
+  " these are set to -1 instead of blank
+  " not sure why this was needed
   let l:e_output = ['-1']
   let l:i_output = ['-1']
   let name = GetLogFile()
 
+  " load log file and read each line
   let l:file = readfile(name)
   for l:line in l:file
     " find error line
     if match(l:line, "[E]") ==? 1
+      " split line up into list
       let l:split = split(l:line)
+      " read line number from 3 item
       let l:get = get(l:split, 2, 'default')
       let l:e_output = add(l:e_output, l:get)
+    " find info line
     elseif match(l:line, "[I]") ==? 1
       let l:split = split(l:line)
       let l:get = get(l:split, 2, 'default')
@@ -211,15 +215,14 @@ endfunction
 
 " Extract Line from Log {{{
 function! ExtractLine()
-  let l:e_output = ['-1']
-  let l:i_output = ['-1']
   let name = GetLogFile()
   let l:curr_line = line('.')
 
   let l:file = readfile(name)
   for l:line in l:file
-    " find line with log info
+    " find line with log info starting at the 8th character
     if match(l:line, l:curr_line, 8) >=? 1
+      " replace tabs with spaces
       let l:line = substitute(l:line, "\t", " ", 'g')
       return l:line
     endif
@@ -227,7 +230,7 @@ function! ExtractLine()
 endfunction
 " }}}
 
-" Floating window -- NeoVim Support {{{
+" Floating window {{{
 function! ShowFloatLog()
   let l:list = ParseLogFile()
   let l:curr_line = line('.')
@@ -242,8 +245,11 @@ function! ShowFloatLog()
       endif
     endfor
   endfor 
+
   let l:matched_line = ExtractLine()
   let l:width = strchars(l:matched_line)
+
+  " check if we even have signs
   let l:signs_exist = GetSigns('error', 0)
   if type(l:signs_exist) ==? type(0)
     let l:signs_exist = GetSigns('info', 0)
@@ -256,6 +262,7 @@ function! ShowFloatLog()
     let l:signs_exist = v:true
   endif 
 
+  " we are on a matching line and we have signs
   if l:window_enable ==? 1 && l:signs_exist ==? v:true
     if g:ov_nvim_support ==? 1
       " set window opts
@@ -289,12 +296,14 @@ function! ShowFloatLog()
       let win = win_getid(win)
       call nvim_win_set_cursor(win, [2,4])
 
+      " create a list of keys so we can exit the floating window
       let keys = [
             \'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
             \'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 
             \'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 
             \'y', 'z'
             \ ]
+      " set all the above to close the window
       for key in keys
         call nvim_buf_set_keymap(s:buf, 'n', key, ':call OV_Main(3)<CR>', { 
               \'noremap' : v:true, 'nowait' : v:true, 'silent' : v:true})
@@ -322,6 +331,7 @@ endfunction
 " Check if log exists {{{
 function! LogCheck()
   let file = GetLogFile()
+  " if file is readable it exists
   if filereadable(file)
     return 1
   else
@@ -341,7 +351,6 @@ function! GetSigns(type, line)
   elseif a:type ==? 'info'
     let signs_dict = sign_getplaced(bufname("%"), {'group' : 'info'})
   endif
-
 
   " append the line number to the function
   for sign in signs_dict
