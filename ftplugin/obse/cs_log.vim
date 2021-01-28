@@ -83,7 +83,7 @@ function! OV_Main(sign)
     redraw
   elseif a:sign ==? 1
     " add timer so we don't read an unupdated log file
-    let timer = timer_start(((g:ov_sync_time * 1000) + 150), 'OV_Sign')
+    let timer = timer_start(((g:ov_sync_time * 1000) + 50), 'OV_Sign')
   endif
 
 endfunction
@@ -117,7 +117,6 @@ function! AddSign()
   " define error sign for number of error
   let l:error = get(l:list, 0, 'default')
   let l:info = get(l:list, 1, 'default')
-  echo l:list
   let i = 0
   for l:match in l:error
     if l:match !=? -1
@@ -173,6 +172,63 @@ function! ParseLogFile()
     endif
   endfor
   return [l:e_output, l:i_output]
+endfunction
+" }}}
+
+" Extract Line from Log {{{
+function! ExtractLine()
+  let l:e_output = ['-1']
+  let l:i_output = ['-1']
+  let name = GetLogFile()
+  let l:curr_line = line('.')
+
+  let l:file = readfile(name)
+  for l:line in l:file
+    " find line with log info
+    if match(l:line, l:curr_line, 8) >=? 1
+      return l:line
+    endif
+  endfor
+endfunction
+" }}}
+
+" Floating window -- NeoVim Support {{{
+function! ShowFloatLogNV()
+  let l:list = ParseLogFile()
+  let l:curr_line = line('.')
+  let l:window_enable = 0
+
+  " see if we are on a line with a sign
+  " l:list is nested lists, use a nested for loop
+  for l:match in l:list
+    for l:line in l:match
+      if l:line ==? l:curr_line
+        let l:window_enable = 1
+      endif
+    endfor
+  endfor 
+  let l:matched_line = ExtractLine()
+  let l:width = strchars(l:matched_line) + 6
+  echo l:width
+
+  if l:window_enable ==? 1
+    " create a buffer as a script var so we know which one is created
+    let s:buf = nvim_create_buf(v:false,v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, [l:matched_line])
+    let opts = {'relative': 'cursor', 'width': l:width, 'height': 2, 'col': 1,
+        \ 'row': 1}
+    let win = nvim_open_win(s:buf, 0, opts)
+    " optional: change highlight, otherwise Pmenu is used
+    hi MyHighlight ctermbg=8 ctermfg=7
+    call nvim_win_set_option(win, 'winhl', 'Normal:MyHighlight')
+  endif
+endfunction
+" }}}
+
+" Close floating window -- NeoVim Support {{{
+function! CloseFloatLogNV()
+  let win = win_findbuf(s:buf)
+  call nvim_win_close(get(win, 0, 'default'), 0)
 endfunction
 " }}}
 
