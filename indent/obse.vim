@@ -10,7 +10,7 @@ endif
 let b:did_indent = 1
 
 setlocal indentexpr=GetObseIndent()
-setlocal indentkeys+==end,=else,=loop
+setlocal indentkeys+==~endif,=~else,=~loop,=~end
 
 if exists("*GetObseIndent")
   finish
@@ -31,7 +31,7 @@ function! GetObseIndent()
   let ind = indent(lnum)
 
   " indent next line on start terms
-  let i = match(prev_text, '\c^\s*\(\s\+\)\?\({\|\(if\|while\|foreach\|begin\|else\%[if]\)\>\)')
+  let i = match(prev_text, '\c^\s*\(\s\+\)\?\(\(if\|while\|foreach\|begin\|else\%[if]\)\>\)')
   if i >= 0
     let ind += shiftwidth()
     if strpart(prev_text, i, 1) == '|' && has('syntax_items')
@@ -40,8 +40,11 @@ function! GetObseIndent()
     endif
   endif
   " indent current line on end/else terms
-  if cur_text =~ '\c^\s*\(\s\+\)\?\({\|\(loop\|end\|endif\|else\%[if]\)\>\)'
+  if cur_text =~ '\c^\s*\(\s\+\)\?\(\(loop\|endif\|else\%[if]\)\>\)'
     let ind = ind - shiftwidth()
+  " if we are at a begin block just go to column 0
+  elseif cur_text =~ '\c^\s*\(\s\+\)\?\(\(begin\|end\)\>\)'
+    let ind = 0
   endif
   return ind
 endfunction
