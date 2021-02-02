@@ -55,22 +55,34 @@ augroup END
 ```
 ### Message Log Window Support:
 This plugin allows the use of floating windows to display message log info that CSE provides.
+![window](https://raw.githubusercontent.com/katawful/Obli-Vim-Assets/main/single.png)   
+These windows have syntax that allow for easier reading.
+Like signs, these require an updated log file and thus only possible when the file is written and the log is updated.
+This is called with `g:ov_ShowFloatLog` and defaults to `<C-a>l`.
+Currently this is only available for NeoVim.
 
+#### Options:
+You can adjust the window style between two types:
+![window-type](https://raw.githubusercontent.com/katawful/Obli-Vim-Assets/main/window-types.png)   
+You can set the type with `g:ov_window_style`.
+The two available options are `single` and `double`
 
 ## Options:
 A number of options can be set:
 
-Global options       | Description                                  | Default   |
----------------------|----------------------------------------------|-----------|
-`g:ov_sync_time`     | Sets the sync time to the value from CSE     | 3         |
-`g:ov_error_sign`    | Sets the error sign to one or two characters | `=>`      |
-`g:ov_info_sign`     | Sets the info sign to one or two characters  | `=>`      |
-`g:ov_JumpNextError` | Binding to jump to next error sign           | `<C-a>en` |
-`g:ov_JumpPrevError` | Binding to jump to previous error sign       | `<C-a>ep` |
-`g:ov_JumpNextInfo`  | Binding to jump to next info sign            | `<C-a>in` |
-`g:ov_JumpPrevInfo`  | Binding to jump to previous info sign        | `<C-a>ip` |
-`g:ov_JumpNextAll`   | Binding to jump to next all sign             | `<C-a>n`  |
-`g:ov_JumpPrevAll`   | Binding to jump to previous all sign         | `<C-a>p`  |
+Global options       | Description                                        | Default   | Options                               |
+---------------------|----------------------------------------------------|-----------|---------------------------------------|
+`g:ov_sync_time`     | Sets the sync time to the value from CSE           | 3         | Any integer equal to script sync time |
+`g:ov_error_sign`    | Sets the error sign to one or two characters       | `=>`      | Any two characters                    |
+`g:ov_info_sign`     | Sets the info sign to one or two characters        | `=>`      | Any two characters                    |
+`g:ov_window_style`  | Sets the floating window style                     | `single`  | `single` or `double`                  |
+`g:ov_ShowFloatLog`  | Show the log info of the current line if available | `<C-a>l`  | Any valid mapping                     |
+`g:ov_JumpNextError` | Binding to jump to next error sign                 | `<C-a>en` | Any valid mapping                     |
+`g:ov_JumpPrevError` | Binding to jump to previous error sign             | `<C-a>ep` | Any valid mapping                     |
+`g:ov_JumpNextInfo`  | Binding to jump to next info sign                  | `<C-a>in` | Any valid mapping                     |
+`g:ov_JumpPrevInfo`  | Binding to jump to previous info sign              | `<C-a>ip` | Any valid mapping                     |
+`g:ov_JumpNextAll`   | Binding to jump to next all sign                   | `<C-a>n`  | Any valid mapping                     |
+`g:ov_JumpPrevAll`   | Binding to jump to previous all sign               | `<C-a>p`  | Any valid mapping                     |
 
 # License
 GPL v3
