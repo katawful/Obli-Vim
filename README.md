@@ -41,6 +41,22 @@ By default the following maps are like so:
 ```
 These can be changed to one's desire (TODO: link appropriate variables).
 
+### Indent:
+This plugin provides indentation by default.
+OBScript does not care about indentation, but for visual reasons it is nice.
+This plugin will indent on any block type, such as `Begin GameMode` and `if` blocks.
+Currently this is not customizable.
+If you wish to disable this, run `:setlocal indentexpr=` within a local *.obl buffer or enable it for the filetype like so in your `vimrc`/`init.vim` file:   
+```vim 
+augroup obl_indent
+  autocmd!
+  autocmd FileType obse setlocal indentexpr=
+augroup END
+```
+### Message Log Window Support:
+This plugin allows the use of floating windows to display message log info that CSE provides.
+
+
 ## Options:
 A number of options can be set:
 
