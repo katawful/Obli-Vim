@@ -1,4 +1,9 @@
 " Vim syntax file
+" Language: OBSE Script (OBSEScript)
+" Original Creator: Ulthar Seramis
+" Maintainer: Kat
+" Latest Revision: 03 February 2021
+
 if exists("b:current_syntax")
   finish
 endif
@@ -230,7 +235,8 @@ syn keyword obseBlockType
 " }}}
 
 " Functions {{{
-syn keyword obseFunction
+" CS functions {{{
+syn keyword csFunction
       \ Activate
       \ AddAchievement
       \ AddFlames
@@ -322,8 +328,8 @@ syn keyword obseFunction
       \ GetInCellParam
       \ GetInFaction
       \ GetInSameCell
-      \ GetInWorldspace
       \ GetInvestmentGold
+      \ GetInWorldspace
       \ GetIsAlerted
       \ GetIsClass
       \ GetIsClassDefault
@@ -341,15 +347,17 @@ syn keyword obseFunction
       \ GetIsUsedItemType
       \ GetItemCount
       \ GetKnockedState
-      \ GetLOS
       \ GetLevel
-      \ GetLockLevel
       \ GetLocked
+      \ GetLockLevel
+      \ GetLOS
       \ GetMenuHasTrait
       \ GetName
       \ GetNoRumors
       \ GetOffersServicesNow
       \ GetOpenState
+      \ GetPackageTarget
+      \ GetParentRef
       \ GetPCExpelled
       \ GetPCFactionAttack
       \ GetPCFactionMurder
@@ -363,8 +371,6 @@ syn keyword obseFunction
       \ GetPCIsSex
       \ GetPCMiscStat
       \ GetPCSleepHours
-      \ GetPackageTarget
-      \ GetParentRef
       \ GetPersuasionNumber
       \ GetPlayerControlsDisabled
       \ GetPlayerHasLastRiddenHorse
@@ -407,8 +413,8 @@ syn keyword obseFunction
       \ IsActorAVictim
       \ IsActorDetected
       \ IsActorEvil
-      \ IsActorUsingATorch
       \ IsActorsAIOff
+      \ IsActorUsingATorch
       \ IsAnimPlayer
       \ IsCellOwner
       \ IsCloudy
@@ -513,8 +519,8 @@ syn keyword obseFunction
       \ SetActorAlpha
       \ SetActorFullName
       \ SetActorRefraction
-      \ SetActorValue
       \ SetActorsAI
+      \ SetActorValue
       \ SetAlert
       \ SetAllReachable
       \ SetAllVisible
@@ -544,6 +550,7 @@ syn keyword obseFunction
       \ SetNoRumors
       \ SetOpenState
       \ SetOwnership
+      \ SetPackDuration
       \ SetPCExpelled
       \ SetPCFactionAttack
       \ SetPCFactionMurder
@@ -552,9 +559,8 @@ syn keyword obseFunction
       \ SetPCFame
       \ SetPCInfamy
       \ SetPCSleepHours
-      \ SetPackDuration
-      \ SetPlayerBirthsign
       \ SetPlayerInSEWorld
+      \ SetPlayerBirthsign
       \ SetPos
       \ SetQuestObject
       \ SetRestrained
@@ -596,12 +602,12 @@ syn keyword obseFunction
       \ WakeUpPC
       \ WhichServiceMenu
       \ Yield
-      \ ACos
-      \ AHammerKey
-      \ ASin
-      \ ATan
-      \ ATan2
+" }}}
+
+" OBSE Functions {{{
+syn keyword obseFunction
       \ Abs
+      \ ACos
       \ AddEffectItem
       \ AddEffectItemC
       \ AddFullEffectItem
@@ -609,19 +615,18 @@ syn keyword obseFunction
       \ AddItemNS
       \ AddSpellNS
       \ AddToLeveledList
+      \ AHammerKey
       \ AnimPathIncludes
       \ AppendToName
-      \ AsciiToChar
+      \ ASin
+      \ ATan
+      \ ATan2
       \ CalcLeveledItem
-      \ Call
       \ CanCorpseCheck
-      \ CanFastTravelFromWorld
       \ Ceil
-      \ CharToAscii
+      \ Call
       \ ClearHotKey
       \ ClearLeveledList
-      \ ClearOwnership_T
-      \ ClearPlayersLastRiddenHorse
       \ CloneForm
       \ CloseAllMenus
       \ CompareFemaleBipedPath
@@ -652,8 +657,8 @@ syn keyword obseFunction
       \ Con_SetGameSetting
       \ Con_SetGamma
       \ Con_SetHDRParam
-      \ Con_SetINISetting
       \ Con_SetImageSpaceGlow
+      \ Con_SetINISetting
       \ Con_SetSkyParam
       \ Con_SetTargetRefraction
       \ Con_SetTargetRefractionFire
@@ -690,7 +695,6 @@ syn keyword obseFunction
       \ CreatureHasNoRightArm
       \ CreatureNoCombatInWater
       \ CreatureUsesWeaponAndShield
-      \ DebugPrint
       \ DisableControl
       \ DisableKey
       \ DisableMouse
@@ -705,16 +709,16 @@ syn keyword obseFunction
       \ Floor
       \ Fmod
       \ GetActiveEffectCount
-      \ GetActiveMenuComponentID
       \ GetActiveMenuFilter
+      \ GetActiveMenuComponentID
+      \ GetMessageBoxType
       \ GetActiveMenuMode
       \ GetActiveMenuObject
       \ GetActiveMenuRef
       \ GetActiveMenuSelection
-      \ GetActiveUIComponentFullName
       \ GetActiveUIComponentID
+      \ GetActiveUIComponentFullName
       \ GetActiveUIComponentNAme
-      \ GetActorBaseLevel
       \ GetActorLightAmount
       \ GetActorMaxLevel
       \ GetActorMinLevel
@@ -732,15 +736,9 @@ syn keyword obseFunction
       \ GetBookCantBeTaken
       \ GetBookIsScroll
       \ GetBookSkillTaught
-      \ GetBoundingRadius
       \ GetCalcAllLevels
       \ GetCalcEachInCount
-      \ GetCallingScript
-      \ GetCellClimate
-      \ GetCellLighting
       \ GetCellMusicType
-      \ GetCellNorthRotation
-      \ GetCellWaterType
       \ GetChanceNone
       \ GetClass
       \ GetClassAttribute
@@ -770,29 +768,25 @@ syn keyword obseFunction
       \ GetCurrentCharge
       \ GetCurrentClimateID
       \ GetCurrentHealth
-      \ GetCurrentPackageProcedure
-      \ GetCurrentScript
       \ GetCurrentSoulLevel
       \ GetCurrentWeatherID
       \ GetDebugSelection
-      \ GetEditorSize
-      \ GetEnchMenuEnchItem
-      \ GetEnchMenuSoulgem
       \ GetEnchantment
       \ GetEnchantmentCharge
       \ GetEnchantmentCost
       \ GetEnchantmentType
+      \ GetEnchMenuEnchItem
+      \ GetEnchMenuSoulgem
       \ GetEquipmentSlot
       \ GetEquipmentSlotMask
       \ GetEquippedCurrentCharge
       \ GetEquippedCurrentHealth
       \ GetEquippedObject
-      \ GetEquippedTorchTimeLeft
       \ GetEquippedWeaponPoison
       \ GetEyes
-      \ GetFPS
       \ GetFallTimer
       \ GetFirstRef
+      \ GetFPS
       \ GetFullGoldValue
       \ GetGameLoaded
       \ GetGameRestarted
@@ -800,78 +794,152 @@ syn keyword obseFunction
       \ GetGoldValue
       \ GetHair
       \ GetHairColor
-      \ GetHighActors
       \ GetHorse
       \ GetHotKeyItem
       \ GetIgnoresResistance
-      \ GetIngredient
       \ GetInventoryObject
-      \ GetKeyName
+      \ GetIngredient
       \ GetKeyPress
       \ GetLevItemByLevel
-      \ GetLightDuration
       \ GetLightRadius
       \ GetLinkedDoor
-      \ GetLocalGravity
       \ GetLoopSound
-      \ GetMagicEffectAreaSound
-      \ GetMagicEffectAreaSoundC
       \ GetMagicEffectBarterFactor
       \ GetMagicEffectBaseCost
-      \ GetMagicEffectBoltSound
-      \ GetMagicEffectBoltSoundC
-      \ GetMagicEffectCastingSound
-      \ GetMagicEffectCastingSoundC
+      \ GetMagicEffectCode
       \ GetMagicEffectChars
       \ GetMagicEffectCharsC
-      \ GetMagicEffectCode
+      \ MagicEffectCodeFromChars
+      \ MagicEffectFromChars
+      \ MagicEffectFromCode
       \ GetMagicEffectEnchantFactor
-      \ GetMagicEffectEnchantShader
-      \ GetMagicEffectEnchantShaderC
-      \ GetMagicEffectHitShader
-      \ GetMagicEffectHitShaderC
-      \ GetMagicEffectHitSound
-      \ GetMagicEffectHitSoundC
-      \ GetMagicEffectIcon
-      \ GetMagicEffectIconC
-      \ GetMagicEffectLight
-      \ GetMagicEffectLightC
-      \ GetMagicEffectModel
-      \ GetMagicEffectModelC
-      \ GetMagicEffectName
-      \ GetMagicEffectNameC
-      \ GetMagicEffectNumCounters
-      \ GetMagicEffectNumCountersC
       \ GetMagicEffectOtherActorValue
       \ GetMagicEffectOtherActorValueC
-      \ GetMagicEffectProjectileSpeed
+      \ GetMagicEffectName
+      \ GetMagicEffectNameC
+      \ GetMagicEffectIcon
+      \ GetMagicEffectIconC
+      \ GetMagicEffectModel
+      \ GetMagicEffectModelC
+      \ SetMagicEffectName
+      \ SetMagicEffectNameC
+      \ SetMagicEffectIcon
+      \ SetMagicEffectIconC
+      \ SetMagicEffectModel
+      \ SetMagicEffectModelC
+      \ GetMagicEffectHitShader
+      \ GetMagicEffectHitShaderC
+      \ GetMagicEffectEnchantShader
+      \ GetMagicEffectEnchantShaderC
+      \ GetMagicEffectLight
+      \ GetMagicEffectLightC
+      \ GetMagicEffectCastingSound
+      \ GetMagicEffectCastingSoundC
+      \ GetMagicEffectBoltSound
+      \ GetMagicEffectBoltSoundC
+      \ GetMagicEffectHitSound
+      \ GetMagicEffectHitSoundC
+      \ GetMagicEffectAreaSound
+      \ GetMagicEffectAreaSoundC
+      \ SetMagicEffectCastingSound
+      \ SetMagicEffectCastingSoundC
+      \ SetMagicEffectBoltSound
+      \ SetMagicEffectBoltSoundC
+      \ SetMagicEffectHitSound
+      \ SetMagicEffectHitSoundC
+      \ SetMagicEffectAreaSound
+      \ SetMagicEffectAreaSoundC
+      \ SetMagicEffectLight
+      \ SetMagicEffectLightC
+      \ SetMagicEffectUsedObject
+      \ SetMagicEffectUsedObjectC
+      \ SetMagicEffectHitShader
+      \ SetMagicEffectHitShaderC
+      \ SetMagicEffectEnchantShader
+      \ SetMagicEffectEnchantShaderC
+      \ GetMagicEffectNumCounters
+      \ GetMagicEffectNumCountersC
       \ GetMagicEffectResistValue
       \ GetMagicEffectResistValueC
+      \ GetNthMagicEffectCounter
+      \ GetNthMagicEffectCounterC
+      \ SetMagicEffectIsHostile
+      \ SetMagicEffectIsHostileC
+      \ SetMagicEffectCanRecover
+      \ SetMagicEffectCanRecoverC
+      \ SetMagicEffectIsDetrimental
+      \ SetMagicEffectIsDetrimentalC
+      \ SetMagicEffectMagnitudePercent
+      \ SetMagicEffectMagnitudePercentC
+      \ SetMagicEffectOnSelfAllowed
+      \ SetMagicEffectOnSelfAllowedC
+      \ SetMagicEffectOnTouchAllowed
+      \ SetMagicEffectOnTouchAllowedC
+      \ SetMagicEffectOnTargetAllowed
+      \ SetMagicEffectOnTargetAllowedC
+      \ SetMagicEffectNoDuration
+      \ SetMagicEffectNoDurationC
+      \ SetMagicEffectNoMagnitude
+      \ SetMagicEffectNoMagnitudeC
+      \ SetMagicEffectNoArea
+      \ SetMagicEffectNoAreaC
+      \ SetMagicEffectFXPersists
+      \ SetMagicEffectFXPersistsC
+      \ SetMagicEffectForSpellmaking
+      \ SetMagicEffectForSpellmakingC
+      \ SetMagicEffectForEnchanting
+      \ SetMagicEffectForEnchantingC
+      \ SetMagicEffectNoIngredient
+      \ SetMagicEffectNoIngredientC
+      \ SetMagicEffectUsesWeapon
+      \ SetMagicEffectUsesWeaponC
+      \ SetMagicEffectUsesArmor
+      \ SetMagicEffectUsesArmorC
+      \ SetMagicEffectUsesCreature
+      \ SetMagicEffectUsesCreatureC
+      \ SetMagicEffectUsesSkill
+      \ SetMagicEffectUsesSkillC
+      \ SetMagicEffectUsesAttribute
+      \ SetMagicEffectUsesAttributeC
+      \ SetMagicEffectUsesActorValue
+      \ SetMagicEffectUsesActorValueC
+      \ SetMagicEffectNoHitEffect
+      \ SetMagicEffectNoHitEffectC
+      \ SetMagicEffectSchool
+      \ SetMagicEffectSchoolC
+      \ SetMagicEffectBaseCost
+      \ SetMagicEffectBaseCostC
+      \ SetMagicEffectResistValue
+      \ SetMagicEffectResistValueC
+      \ SetMagicEffectEnchantFactor
+      \ SetMagicEffectEnchantFactorC
+      \ SetMagicEffectBarterFactor
+      \ SetMagicEffectBarterFactorC
+      \ SetMagicEffectProjectileSpeed
+      \ SetMagicEffectProjectileSpeedC
+      \ SetMagicEffectOtherActorValue
+      \ SetMagicEffectOtherActorValueC
+      \ GetMagicEffectProjectileSpeed
       \ GetMagicEffectSchool
       \ GetMagicEffectUsedObject
       \ GetMagicEffectUsedObjectC
       \ GetMagicItemEffectCount
       \ GetMagicItemType
       \ GetMagicProjectileSpell
-      \ GetMapMarkers
       \ GetMerchantContainer
-      \ GetMessageBoxType
-      \ GetMiddleHighActors
       \ GetModIndex
       \ GetMouseButtonPress
       \ GetNextRef
-      \ GetNthAcitveEffectMagnitude
-      \ GetNthActiveEffectActorValue
       \ GetNthActiveEffectCaster
       \ GetNthActiveEffectCode
       \ GetNthActiveEffectData
       \ GetNthActiveEffectDuration
       \ GetNthActiveEffectMagicItem
       \ GetNthActiveEffectMagicItemIndex
+      \ GetNthAcitveEffectMagnitude
       \ GetNthActiveEffectTimeElapsed
       \ GetNthChildRef
       \ GetNthDetectedActor
-      \ GetNthEffectItem
       \ GetNthEffectItemActorValue
       \ GetNthEffectItemArea
       \ GetNthEffectItemCode
@@ -888,8 +956,6 @@ syn keyword obseFunction
       \ GetNthLevItem
       \ GetNthLevItemCount
       \ GetNthLevItemLevel
-      \ GetNthMagicEffectCounter
-      \ GetNthMagicEffectCounterC
       \ GetNthPackage
       \ GetNthPlayerSpell
       \ GetNthRaceBonusSkill
@@ -897,6 +963,7 @@ syn keyword obseFunction
       \ GetNthSpell
       \ GetNumChildRefs
       \ GetNumDetectedActors
+      \ GetNumericINISetting
       \ GetNumFactions
       \ GetNumFollowers
       \ GetNumItems
@@ -907,33 +974,28 @@ syn keyword obseFunction
       \ GetNumPackages
       \ GetNumRanks
       \ GetNumRefs
-      \ GetNumericINISetting
-      \ GetOBSERevision
-      \ GetOBSEVersion
       \ GetObjectCharge
       \ GetObjectHealth
       \ GetObjectType
+      \ GetOBSERevision
+      \ GetOBSEVersion
       \ GetOpenKey
       \ GetOpenSound
       \ GetOwner
       \ GetOwningFactionRank
-      \ GetPCAttributeBonus
-      \ GetPCMajorSkillUps
       \ GetParentCell
       \ GetParentCellOwner
       \ GetParentCellOwningFactionRank
       \ GetParentCellWaterHeight
-      \ GetPathNodeLinkedRef
-      \ GetPathNodePos
-      \ GetPathNodesInRadius
-      \ GetPathNodesInRect
-      \ GetPlayerBirthsign
+      \ GetPCAttributeBonus
+      \ GetPCMajorSkillUps
       \ GetPlayerSkillUse
-      \ GetPlayerSpell
       \ GetPlayersLastActivatedLoadDoor
       \ GetPlayersLastRiddenHorse
-      \ GetPluginVersion
+      \ GetPlayerSpell
+      \ GetPlayerBirthsign
       \ GetPlyerSpellCount
+      \ GetPluginVersion
       \ GetProcessLevel
       \ GetProjectileSource
       \ GetProjectileType
@@ -944,15 +1006,12 @@ syn keyword obseFunction
       \ GetRaceSkillBonus
       \ GetRaceSkillBonusC
       \ GetRaceSpellCount
-      \ GetRaceVoice
       \ GetRefCount
       \ GetRefVariable
-      \ GetRequiredSkillExp
       \ GetRider
       \ GetScript
       \ GetScriptActiveEffectIndex
       \ GetServicesMask
-      \ GetSkillSpecialization
       \ GetSkillUseIncrement
       \ GetSoulGemCapacity
       \ GetSoulLevel
@@ -963,12 +1022,11 @@ syn keyword obseFunction
       \ GetSpellMagickaCost
       \ GetSpellMasteryLevel
       \ GetSpellSchool
-      \ GetSpellType
       \ GetSpells
-      \ GetTeleportCell	
-      \ GetTerrainHeight
+      \ GetSpellType
       \ GetTexturePath
-      \ GetTimeLeft
+      \ GetTeleportCell	
+      \ GetTotalActiveEffectMagnitude
       \ GetTotalAEAbilityMagnitude
       \ GetTotalAEAlchemyMagnitude
       \ GetTotalAEAllSpellsMagnitude
@@ -978,19 +1036,16 @@ syn keyword obseFunction
       \ GetTotalAENonAbilityMagnitude
       \ GetTotalAEPowerMagnitude
       \ GetTotalAESpellMagnitude
-      \ GetTotalActiveEffectMagnitude
       \ GetTotalPCAttributeBonus
       \ GetTrainerLevel
       \ GetTrainerSkill
       \ GetTravelHorse
       \ GetVariable
-      \ GetVelocity
-      \ GetVerticalVelocity
-      \ GetWeahterCloudSpeedUpper
       \ GetWeaponReach
       \ GetWeaponSpeed
       \ GetWeaponType
       \ GetWeatherCloudSpeedLower
+      \ GetWeahterCloudSpeedUpper
       \ GetWeatherColor
       \ GetWeatherFogDayFar
       \ GetWeatherFogDayNear
@@ -1006,7 +1061,6 @@ syn keyword obseFunction
       \ Goto
       \ HammerKey
       \ HasBeenPickedUp
-      \ HasEffectShader
       \ HasLowLevelProcessing
       \ HasModel
       \ HasName
@@ -1024,14 +1078,12 @@ syn keyword obseFunction
       \ IsApparatus
       \ IsArmor
       \ IsAttacking
-      \ IsAutomaticDoor
       \ IsBarterMenuActive
       \ IsBipedIconPathValid
       \ IsBipedModelPathValid
       \ IsBlocking
       \ IsBook
       \ IsCasting
-      \ IsCellPublic
       \ IsClassAttribute
       \ IsClassSkill
       \ IsClonedForm
@@ -1040,29 +1092,25 @@ syn keyword obseFunction
       \ IsControlPressed
       \ IsCreature
       \ IsCreatureBiped
-      \ IsDigit
       \ IsDodging
       \ IsDoor
       \ IsFactionEvil
       \ IsFactionHidden
-      \ IsFlora
       \ IsFlying
+      \ IsFlora
       \ IsFood
       \ IsFormValid
       \ IsFurniture
       \ IsGlobalCollisionDisabled
       \ IsHarvested
-      \ IsHiddenDoor
       \ IsIconPathValid
       \ IsInAir
-      \ IsInOblivion
       \ IsIngredient
       \ IsJumping
       \ IsKey
       \ IsKeyPressed
       \ IsKeyPressed2
       \ IsKeyPressed3
-      \ IsLetter
       \ IsLight
       \ IsLightCarriable
       \ IsLoadDoor
@@ -1084,36 +1132,29 @@ syn keyword obseFunction
       \ IsMagicEffectOnTouchAllowed
       \ IsMagicEffectOnTouchAllowedC
       \ IsMagicItemAutoCalc
-      \ IsMinimalUseDoor
-      \ IsModLoaded
       \ IsModelPathValid
+      \ IsModLoaded
       \ IsMovingBackward
       \ IsMovingForward
       \ IsMovingLeft
       \ IsMovingRight
-      \ IsNthActiveEffectApplied
-      \ IsNthEffectItemScriptHostile
       \ IsNthEffectItemScripted
-      \ IsOblivionInterior
-      \ IsOblivionWorld
+      \ IsNthEffectItemScriptHostile
       \ IsOffLimits
       \ IsOnGround
       \ IsPCLevelOffset
-      \ IsPathNodeDisabled
       \ IsPersistent
       \ IsPlayable
       \ IsPlayable2
       \ IsPluginInstalled
       \ IsPoison
       \ IsPowerAttacking
-      \ IsPrintable
-      \ IsPunctuation
       \ IsQuestItem
       \ IsRaceBonusSkill
       \ IsRaceBonusSkillC
       \ IsRecoiling
-      \ IsRefEssential
       \ IsReference
+      \ IsRefEssential
       \ IsScripted
       \ IsSigilStone
       \ IsSoulGem
@@ -1123,7 +1164,6 @@ syn keyword obseFunction
       \ IsTurningLeft
       \ IsTurningRight
       \ IsUnderWater
-      \ IsUppercase
       \ IsWeapon
       \ Label
       \ LeftShift
@@ -1133,11 +1173,8 @@ syn keyword obseFunction
       \ LogicalNot
       \ LogicalOr
       \ LogicalXor
-      \ MagicEffectCodeFromChars
       \ MagicEffectFXPersists
       \ MagicEffectFXPersistsC
-      \ MagicEffectFromChars
-      \ MagicEffectFromCode
       \ MagicEffectHasNoArea
       \ MagicEffectHasNoAreaC
       \ MagicEffectHasNoDuration
@@ -1202,7 +1239,6 @@ syn keyword obseFunction
       \ MoveMouseX
       \ MoveMouseY
       \ NameIncludes
-      \ NumToHex
       \ OffersApparatus
       \ OffersArmor
       \ OffersBooks
@@ -1221,13 +1257,13 @@ syn keyword obseFunction
       \ OnControlDown
       \ OnKeyDown
       \ ParentCellHasWater
-      \ PathEdgeExists
-      \ PlayIdle
       \ Pow
-      \ Print
-      \ PrintActiveTileInfo
-      \ PrintC
       \ PrintToConsole
+      \ PrintActiveTileInfo
+      \ DebugPrint
+      \ SetDebugMode
+      \ Print
+      \ PrintC
       \ Rand
       \ RefreshControlMap
       \ RefreshCurrentClimate
@@ -1242,7 +1278,6 @@ syn keyword obseFunction
       \ RemoveNthEffectItem
       \ RemoveScript
       \ RemoveSpellNS
-      \ ResolveModIndex
       \ RestoreIP
       \ RightShift
       \ RunBatchScript
@@ -1258,13 +1293,6 @@ syn keyword obseFunction
       \ SetBookSkillTaught
       \ SetButtonPressed
       \ SetCanCorpseCheck
-      \ SetCanFastTravelFromWorld
-      \ SetCellBehavesAsExterior
-      \ SetCellClimate
-      \ SetCellHasWater
-      \ SetCellIsPublic
-      \ SetCellLighting
-      \ SetCellWaterType
       \ SetClimateHasMassser
       \ SetClimateHasSecunda
       \ SetClimateMoonPhaseLength
@@ -1273,9 +1301,7 @@ syn keyword obseFunction
       \ SetClimateVolatility
       \ SetCloseSound
       \ SetContainerRespawns
-      \ SetCreatureSkill
       \ SetCurrentSoulLevel
-      \ SetDebugMode
       \ SetDetectionState
       \ SetDisableGlobalCollision
       \ SetEnchantment
@@ -1295,104 +1321,17 @@ syn keyword obseFunction
       \ SetFemaleGroundPath
       \ SetFemaleIconPath
       \ SetGoldValue
-      \ SetGoldValue_T
       \ SetHair
       \ SetHarvested
       \ SetHasBeenPickedUp
       \ SetHotKeyItem
       \ SetIconPath
       \ SetIgnoresResistance
-      \ SetInputText
-      \ SetIsAutomaticDoor
       \ SetIsFood
-      \ SetIsHiddenDoor
-      \ SetIsMinimalUseDoor
-      \ SetIsOblivionGate
       \ SetIsPlayable
-      \ SetLightDuration
       \ SetLightRadius
-      \ SetLocalGravity
-      \ SetLocalGravityVector
       \ SetLoopSound
       \ SetLowLevelProcessing
-      \ SetMagicEffectAreaSound
-      \ SetMagicEffectAreaSoundC
-      \ SetMagicEffectBarterFactor
-      \ SetMagicEffectBarterFactorC
-      \ SetMagicEffectBaseCost
-      \ SetMagicEffectBaseCostC
-      \ SetMagicEffectBoltSound
-      \ SetMagicEffectBoltSoundC
-      \ SetMagicEffectCanRecover
-      \ SetMagicEffectCanRecoverC
-      \ SetMagicEffectCastingSound
-      \ SetMagicEffectCastingSoundC
-      \ SetMagicEffectEnchantFactor
-      \ SetMagicEffectEnchantFactorC
-      \ SetMagicEffectEnchantShader
-      \ SetMagicEffectEnchantShaderC
-      \ SetMagicEffectFXPersists
-      \ SetMagicEffectFXPersistsC
-      \ SetMagicEffectForEnchanting
-      \ SetMagicEffectForEnchantingC
-      \ SetMagicEffectForSpellmaking
-      \ SetMagicEffectForSpellmakingC
-      \ SetMagicEffectHitShader
-      \ SetMagicEffectHitShaderC
-      \ SetMagicEffectHitSound
-      \ SetMagicEffectHitSoundC
-      \ SetMagicEffectIcon
-      \ SetMagicEffectIconC
-      \ SetMagicEffectIsDetrimental
-      \ SetMagicEffectIsDetrimentalC
-      \ SetMagicEffectIsHostile
-      \ SetMagicEffectIsHostileC
-      \ SetMagicEffectLight
-      \ SetMagicEffectLightC
-      \ SetMagicEffectMagnitudePercent
-      \ SetMagicEffectMagnitudePercentC
-      \ SetMagicEffectModel
-      \ SetMagicEffectModelC
-      \ SetMagicEffectName
-      \ SetMagicEffectNameC
-      \ SetMagicEffectNoArea
-      \ SetMagicEffectNoAreaC
-      \ SetMagicEffectNoDuration
-      \ SetMagicEffectNoDurationC
-      \ SetMagicEffectNoHitEffect
-      \ SetMagicEffectNoHitEffectC
-      \ SetMagicEffectNoIngredient
-      \ SetMagicEffectNoIngredientC
-      \ SetMagicEffectNoMagnitude
-      \ SetMagicEffectNoMagnitudeC
-      \ SetMagicEffectOnSelfAllowed
-      \ SetMagicEffectOnSelfAllowedC
-      \ SetMagicEffectOnTargetAllowed
-      \ SetMagicEffectOnTargetAllowedC
-      \ SetMagicEffectOnTouchAllowed
-      \ SetMagicEffectOnTouchAllowedC
-      \ SetMagicEffectOtherActorValue
-      \ SetMagicEffectOtherActorValueC
-      \ SetMagicEffectProjectileSpeed
-      \ SetMagicEffectProjectileSpeedC
-      \ SetMagicEffectResistValue
-      \ SetMagicEffectResistValueC
-      \ SetMagicEffectSchool
-      \ SetMagicEffectSchoolC
-      \ SetMagicEffectUsedObject
-      \ SetMagicEffectUsedObjectC
-      \ SetMagicEffectUsesActorValue
-      \ SetMagicEffectUsesActorValueC
-      \ SetMagicEffectUsesArmor
-      \ SetMagicEffectUsesArmorC
-      \ SetMagicEffectUsesAttribute
-      \ SetMagicEffectUsesAttributeC
-      \ SetMagicEffectUsesCreature
-      \ SetMagicEffectUsesCreatureC
-      \ SetMagicEffectUsesSkill
-      \ SetMagicEffectUsesSkillC
-      \ SetMagicEffectUsesWeapon
-      \ SetMagicEffectUsesWeaponC
       \ SetMagicItemAutoCalc
       \ SetMaleBipedPath
       \ SetMaleGroundPath
@@ -1441,22 +1380,15 @@ syn keyword obseFunction
       \ SetOffersWeapons
       \ SetOpenKey
       \ SetOpenSound
-      \ SetOwnership_T
       \ SetPCAMurderer
       \ SetPCLevelOffset
-      \ SetPathNodeDisabled
       \ SetPlayerProjectile
-      \ SetPlayersLastRiddenHorse
-      \ SetPos_T
       \ SetQuality
       \ SetQuestItem
-      \ SetRaceScale
-      \ SetRaceWeight
       \ SetRefCount
       \ SetRefEssential
       \ SetScaleEx
       \ SetScript
-      \ SetSkillSpecialization
       \ SetSkillUseIncrement
       \ SetSoulGemCapacity
       \ SetSoulLevel
@@ -1466,14 +1398,9 @@ syn keyword obseFunction
       \ SetSpellMasteryLevel
       \ SetSpellType
       \ SetSummonable
-      \ SetTextInputControlHandler
-      \ SetTextInputDefaultControlsDisabled
-      \ SetTimeLeft
       \ SetTrainerLevel
       \ SetTrainerSkill
       \ SetTravelHorse
-      \ SetVelocity
-      \ SetVerticalVelocity
       \ SetWeaponReach
       \ SetWeaponSpeed
       \ SetWeaponType
@@ -1498,53 +1425,150 @@ syn keyword obseFunction
       \ Tanh
       \ TapControl
       \ TapKey
-      \ ToLower
-      \ ToNumber
-      \ ToUpper
       \ ToggleCreatureModel
-      \ ToggleSkillPerk
-      \ UnHammerKey
       \ UnequipItemNS
       \ UnequipItemSilent
-      \ ar_Append
-      \ ar_BadNumericIndex
-      \ ar_BadStringIndex
+      \ UnHammerKey
+      \ ToggleSkillPerk
+      \ GetCellNorthRotation
+      \ GetActorBaseLevel
+      \ SetGoldValue_T
+      \ SetRaceScale
+      \ SetRaceWeight
+      \ GetLocalGravity
+      \ SetLocalGravity
+      \ SetLocalGravityVector
+      \ GetVelocity
+      \ SetVelocity
+      \ GetVerticalVelocity
+      \ SetIsOblivionGate
+      \ IsAutomaticDoor
+      \ SetIsAutomaticDoor
+      \ IsHiddenDoor
+      \ SetIsHiddenDoor
+      \ IsMinimalUseDoor
+      \ SetIsMinimalUseDoor
+      \ GetEquippedTorchTimeLeft
+      \ GetCellWaterType
+      \ SetCellWaterType
+      \ SetVerticalVelocity
+      \ GetHighActors
+      \ GetMiddleHighActors
+      \ GetSkillSpecialization
+      \ SetSkillSpecialization
+      \ GetCurrentPackageProcedure
+      \ GetCurrentScript
+      \ GetCallingScript
+      \ GetNthActiveEffectActorValue
+      \ SetPlayersLastRiddenHorse
+      \ ClearPlayersLastRiddenHorse
+      \ EquipItemSilent
+      \ UnequipItemSilent
+      \ GetCellLighting
+      \ SetCellLighting
+      \ IsNthActiveEffectApplied
+      \ GetMapMarkers
+      \ PlayIdle
+      \ IsPathNodeDisabled
+      \ SetPathNodeDisabled
+      \ GetPathNodePos
+      \ PathEdgeExists
+      \ GetCellClimate
+      \ SetCellClimate
+      \ SetCellBehavesAsExterior
+      \ SetCellHasWater
+      \ GetBoundingRadius
+      \ GetEditorSize
+      \ GetNthEffectItem
+      \ GetPathNodeLinkedRef
+      \ GetTerrainHeight
+      \ IsCellPublic
+      \ SetCellIsPublic
+      \ ResolveModIndex
+      \ SetPos_T
+      \ SetOwnership_T
+      \ ClearOwnership_T
+      \ GetRequiredSkillExp
+      \ HasEffectShader
+      \ GetRaceVoice
+      \ IsOblivionInterior
+      \ IsOblivionWorld
+      \ CanFastTravelFromWorld
+      \ SetCanFastTravelFromWorld
+      \ IsInOblivion
+      \ GetLightDuration
+      \ SetLightDuration
+      \ GetTimeLeft
+      \ SetTimeLeft
+      \ SetCreatureSkill
+      \ GetPathNodesInRadius
+      \ GetPathNodesInRect
+      \ SetInputText
+      \ SetTextInputControlHandler
+      \ SetTextInputDefaultControlsDisabled
+" }}}
+
+" Array Functions {{{
+syn keyword obseArrayFunction
       \ ar_Construct
-      \ ar_Copy
-      \ ar_CustomSort
-      \ ar_DeepCopy
+      \ ar_Size
       \ ar_Dump
       \ ar_DumpID
       \ ar_Erase
       \ ar_Find
-      \ ar_First
-      \ ar_HasKeys
-      \ ar_Insert
-      \ ar_InsertRange
-      \ ar_Keys
-      \ ar_Last
-      \ ar_List
-      \ ar_Map
-      \ ar_Next
-      \ ar_Null
-      \ ar_Prev
-      \ ar_Range
-      \ ar_Resize
-      \ ar_Size
       \ ar_Sort
       \ ar_SortAlpha
-      \ sv_Compare
+      \ ar_Copy
+      \ ar_DeepCopy
+      \ ar_First
+      \ ar_Last
+      \ ar_Next
+      \ ar_Prev
+      \ ar_BadNumericIndex
+      \ ar_BadStringIndex
+      \ ar_Keys
+      \ ar_HasKeys
+      \ ar_Null
+      \ ar_List
+      \ ar_Resize
+      \ ar_Insert
+      \ ar_InsertRange
+      \ ar_Range
+      \ ar_Map
+      \ ar_Append
+      \ ar_CustomSort
+" }}}
+
+" String Functions {{{
+syn keyword obseStringFunction
       \ sv_Construct
-      \ sv_Count
       \ sv_Destruct
-      \ sv_Erase
-      \ sv_Find
-      \ sv_Insert
       \ sv_Length
-      \ sv_Percentify
-      \ sv_Replace
-      \ sv_Split
+      \ sv_Compare
+      \ sv_Erase
       \ sv_ToNumeric
+      \ sv_Find
+      \ sv_Count
+      \ sv_Replace
+      \ sv_Insert
+      \ sv_Split
+      \ GetKeyName
+      \ AsciiToChar
+      \ NumToHex
+      \ sv_Percentify
+      \ IsDigit
+      \ IsPunctuation
+      \ IsUppercase
+      \ IsPrintable
+      \ IsLetter
+      \ CharToAscii
+      \ ToUpper
+      \ ToLower
+      \ ToNumber
+" }}}
+
+" Pluggy Functions {{{
+syn keyword pluggyFunction
       \ ArrayCmp
       \ ArrayCount
       \ ArrayEsp
@@ -1557,6 +1581,7 @@ syn keyword obseFunction
       \ CreateArray
       \ CreateEspBook
       \ CreateString
+      \ csc
       \ DelAllHudSs
       \ DelAllHudTs
       \ DelFile
@@ -1587,31 +1612,31 @@ syn keyword obseFunction
       \ GetTypeInArray
       \ Halt
       \ HasFixedName
-      \ HudSEsp
-      \ HudSProtect
       \ HudS_Align
+      \ HudSEsp
+      \ HudsInfo
       \ HudS_L
       \ HudS_Opac
+      \ HudSProtect
       \ HudS_SclX
       \ HudS_SclY
       \ HudS_Show
       \ HudS_Tex
       \ HudS_X
       \ HudS_Y
-      \ HudTEsp
-      \ HudTInfo
-      \ HudTProtect
       \ HudT_Align
+      \ HudTEsp
       \ HudT_Font
+      \ HudTInfo
       \ HudT_L
       \ HudT_Opac
+      \ HudTProtect
       \ HudT_SclX
       \ HudT_SclY
       \ HudT_Show
       \ HudT_Text
       \ HudT_X
       \ HudT_Y
-      \ HudsInfo
       \ IniDelKey
       \ IniGetNthSection
       \ IniKeyExists
@@ -1637,6 +1662,7 @@ syn keyword obseFunction
       \ PackArray
       \ PauseBox
       \ PlgySpcl
+      \ rcsc
       \ RefToLong
       \ RefToString
       \ RemInArray
@@ -1650,6 +1676,32 @@ syn keyword obseFunction
       \ SetInArray
       \ SetRefInArray
       \ SetString
+      \ StringCat
+      \ StringCmp
+      \ StringEsp
+      \ StringGetName
+      \ StringGetNameEx
+      \ StringIns
+      \ StringLen
+      \ StringMsg
+      \ StringMsgBox
+      \ StringPos
+      \ StringProtect
+      \ StringRep
+      \ StringSetName
+      \ StringSetNameEx
+      \ StringToFloat
+      \ StringToInt
+      \ StringToRef
+      \ StringToTxtFile
+      \ StrLC
+      \ ToOBSEString
+      \ ToTSFC
+      \ UserFileExists
+" }}}
+
+" tfscFunction {{{
+syn keyword tfscFunction
       \ StrAddNewLine
       \ StrAppend
       \ StrAppendCharCode
@@ -1672,7 +1724,6 @@ syn keyword obseFunction
       \ StrGetNthFactionRankName
       \ StrGetRandomName
       \ StrIDReplace
-      \ StrLC
       \ StrLength
       \ StrLoad
       \ StrMessageBox
@@ -1689,29 +1740,10 @@ syn keyword obseFunction
       \ StrSetModelPath
       \ StrSetName
       \ StrSetNthEffectItemScriptName
-      \ StringCat
-      \ StringCmp
-      \ StringEsp
-      \ StringGetName
-      \ StringGetNameEx
-      \ StringIns
-      \ StringLen
-      \ StringMsg
-      \ StringMsgBox
-      \ StringPos
-      \ StringProtect
-      \ StringRep
-      \ StringSetName
-      \ StringSetNameEx
-      \ StringToFloat
-      \ StringToInt
-      \ StringToRef
-      \ StringToTxtFile
-      \ ToOBSEString
-      \ ToTSFC
-      \ UserFileExists
-      \ csc
-      \ rcsc
+" }}}
+
+" Blockhead Functions {{{
+syn keyword blockheadFunction
       \ GetBodyAssetOverride
       \ GetFaceGenAge
       \ GetHeadAssetOverride
@@ -1724,25 +1756,37 @@ syn keyword obseFunction
       \ SetFaceGenAge
       \ SetHeadAssetOverride
       \ ToggleAnimOverride
+" }}}
+
+" switchNightEyeShaderFunction {{{
+syn keyword switchNightEyeShaderFunction
       \ EnumNightEyeShader
       \ SetNightEyeShader
+" }}}
+
+" Oblivion Reloaded Functions {{{
+syn keyword oblivionReloadedFunction
       \ ORGetCustomEffectValue
       \ ORGetEffectValue
       \ ORGetLocationName
       \ ORGetSections
       \ ORGetSetting
       \ ORGetSettings
-      \ ORGetShaderValue
       \ ORGetShaders
+      \ ORGetShaderValue
       \ ORLoadSettings
       \ ORPurgeResources
       \ ORSaveSettings
       \ ORScreenshot
       \ ORSetCustomEffectValue
       \ ORSetSetting
+" }}}
+
+" menuQue Functions {{{
+syn keyword menuQueFunction
+      \ GetAllSkills
       \ GetAVSkillMasteryLevelC
       \ GetAVSkillMasteryLevelF
-      \ GetAllSkills
       \ GetFontLoaded
       \ GetGenericButtonPressed
       \ GetLoadedFonts
@@ -1775,24 +1819,6 @@ syn keyword obseFunction
       \ IsTextEditInUse
       \ Kyoma_Test
       \ ModPlayerSkillExpF
-      \ RemoveMenuEventHandler
-      \ SetMenuEventHandler
-      \ SetMouseImage
-      \ SetPlayerSkillAdvancesF
-      \ SetSkillGoverningAttributeF
-      \ SetSkillSpecializationC
-      \ SetSkillSpecializationF
-      \ SetSkillUseIncrementF
-      \ SetTextEditString
-      \ SetTrainerSkillC
-      \ SetWorldMapData
-      \ ShowGenericMenu
-      \ ShowLevelUpMenu
-      \ ShowMagicPopupMenu
-      \ ShowTextEditMenu
-      \ ShowTrainingMenu
-      \ TriggerPlayerSkillUseF
-      \ UpdateLocalMap
       \ mqCreateMenuFloatValue
       \ mqCreateMenuStringValue
       \ mqGetActiveQuest
@@ -1819,10 +1845,26 @@ syn keyword obseFunction
       \ mqSetMenuActiveStringValue
       \ mqSetMenuChildFloatValue
       \ mqSetMenuChildStringValue
-      \ mqSetMenuGlobalFloatValue
       \ mqSetMenuGlobalStringValue
+      \ mqSetMenuGlobalFloatValue
       \ mqSetMessageBoxSource
       \ mqUncompleteQuest
+      \ RemoveMenuEventHandler
+      \ SetMenuEventHandler
+      \ SetMouseImage
+      \ SetPlayerSkillAdvancesF
+      \ SetSkillGoverningAttributeF
+      \ SetSkillSpecializationC
+      \ SetSkillSpecializationF
+      \ SetSkillUseIncrementF
+      \ SetTextEditString
+      \ SetTrainerSkillC
+      \ SetWorldMapData
+      \ ShowGenericMenu
+      \ ShowLevelUpMenu
+      \ ShowMagicPopupMenu
+      \ ShowTextEditMenu
+      \ ShowTrainingMenu
       \ tile_FadeFloat
       \ tile_GetFloat
       \ tile_GetInfo
@@ -1832,9 +1874,91 @@ syn keyword obseFunction
       \ tile_HasTrait
       \ tile_SetFloat
       \ tile_SetString
+      \ TriggerPlayerSkillUseF
+      \ UpdateLocalMap
+" }}}
+
+" eaxFunction {{{
+syn keyword eaxFunction
+      \ CreateEAXeffect
+      \ DeleteEAXeffect
+      \ DisableEAX
+      \ EAXcopyEffect
+      \ EAXeffectExists
+      \ EAXeffectsAreEqual
+      \ EAXgetActiveEffect
+      \ EAXnumEffects
+      \ EAXpushEffect
+      \ EAXpopEffect
+      \ EAXremoveAllInstances
+      \ EAXremoveFirstInstance
+      \ EAXstackIsEmpty
+      \ EAXstackSize
+      \ EnableEAX
+      \ GetEAXAirAbsorptionHF
+      \ GetEAXDecayHFRatio
+      \ GetEAXDecayTime
+      \ GetEAXEnvironment
+      \ GetEAXEnvironmentSize
+      \ GetEAXEnvironmentDiffusion
+      \ GetEAXReflections
+      \ GetEAXReflectionsDelay
+      \ GetEAXReverb
+      \ GetEAXReverbDelay
+      \ GetEAXRoom
+      \ GetEAXRoomHF
+      \ GetEAXRoomRolloffFactor
+      \ InitializeEAX
+      \ IsEAXEnabled
+      \ IsEAXInitialized
+      \ SetEAXAirAbsorptionHF
+      \ SetEAXallProperties
+      \ SetEAXDecayTime
+      \ SetEAXDecayHFRatio
+      \ SetEAXEnvironment
+      \ SetEAXEnvironmentSize
+      \ SetEAXEnvironmentDiffusion
+      \ SetEAXReflections
+      \ SetEAXReflectionsDelay
+      \ SetEAXReverb
+      \ SetEAXReverbDelay
+      \ SetEAXRoom
+      \ SetEAXRoomHF
+      \ SetEAXRoomRolloffFactor
+" }}}
+
+" networkPipeFunction {{{
+syn keyword networkPipeFunction
+      \ NetworkPipe_CreateClient
+      \ NetworkPipe_GetData
+      \ NetworkPipe_IsNewGame
+      \ NetworkPipe_KillClient
+      \ NetworkPipe_Receive
+      \ NetworkPipe_SetData
+      \ NetworkPipe_Send
+      \ NetworkPipe_StartService
+      \ NetworkPipe_StopService
+" }}}
+
+" nifseFunction {{{
+syn keyword nifseFunction
       \ BSFurnitureMarkerGetPositionRefs
       \ BSFurnitureMarkerSetPositionRefs
       \ GetNifTypeIndex
+      \ NiAlphaPropertyGetBlendState
+      \ NiAlphaPropertyGetDestinationBlendFunction
+      \ NiAlphaPropertyGetSourceBlendFunction
+      \ NiAlphaPropertyGetTestFunction
+      \ NiAlphaPropertyGetTestState
+      \ NiAlphaPropertyGetTestThreshold
+      \ NiAlphaPropertyGetTriangleSortMode
+      \ NiAlphaPropertySetBlendState
+      \ NiAlphaPropertySetDestinationBlendFunction
+      \ NiAlphaPropertySetSourceBlendFunction
+      \ NiAlphaPropertySetTestFunction
+      \ NiAlphaPropertySetTestState
+      \ NiAlphaPropertySetTestThreshold
+      \ NiAlphaPropertySetTriangleSortMode
       \ NiAVObjectAddProperty
       \ NiAVObjectClearCollisionObject
       \ NiAVObjectCopyCollisionObject
@@ -1853,20 +1977,6 @@ syn keyword obseFunction
       \ NiAVObjectSetLocalScale
       \ NiAVObjectSetLocalTransform
       \ NiAVObjectSetLocalTranslation
-      \ NiAlphaPropertyGetBlendState
-      \ NiAlphaPropertyGetDestinationBlendFunction
-      \ NiAlphaPropertyGetSourceBlendFunction
-      \ NiAlphaPropertyGetTestFunction
-      \ NiAlphaPropertyGetTestState
-      \ NiAlphaPropertyGetTestThreshold
-      \ NiAlphaPropertyGetTriangleSortMode
-      \ NiAlphaPropertySetBlendState
-      \ NiAlphaPropertySetDestinationBlendFunction
-      \ NiAlphaPropertySetSourceBlendFunction
-      \ NiAlphaPropertySetTestFunction
-      \ NiAlphaPropertySetTestState
-      \ NiAlphaPropertySetTestThreshold
-      \ NiAlphaPropertySetTriangleSortMode
       \ NiExtraDataGetArray
       \ NiExtraDataGetName
       \ NiExtraDataGetNumber
@@ -1875,6 +1985,15 @@ syn keyword obseFunction
       \ NiExtraDataSetName
       \ NiExtraDataSetNumber
       \ NiExtraDataSetString
+      \ NifClose
+      \ NifGetAltGrip
+      \ NifGetBackShield
+      \ NifGetNumBlocks
+      \ NifGetOffHand
+      \ NifGetOriginalPath
+      \ NifGetPath
+      \ NifOpen
+      \ NifWriteToDisk
       \ NiMaterialPropertyGetAmbientColor
       \ NiMaterialPropertyGetDiffuseColor
       \ NiMaterialPropertyGetEmissiveColor
@@ -1948,18 +2067,21 @@ syn keyword obseFunction
       \ NiVertexColorPropertyGetVertexMode
       \ NiVertexColorPropertySetLightingMode
       \ NiVertexColorPropertySetVertexMode
-      \ NifClose
-      \ NifGetAltGrip
-      \ NifGetBackShield
-      \ NifGetNumBlocks
-      \ NifGetOffHand
-      \ NifGetOriginalPath
-      \ NifGetPath
-      \ NifOpen
-      \ NifWriteToDisk
-      \ DebugBreak
+" }}}
+
+" reidFunction {{{
+syn keyword reidFunction
       \ GetRuntimeEditorID
+" }}}
+
+" runtimeDebuggerFunction {{{
+syn keyword runtimeDebuggerFunction
+      \ DebugBreak
       \ ToggleDebugBreaking
+" }}}
+
+" addActorValuesFunction {{{
+syn keyword addActorValuesFunction
       \ DumpActorValueC
       \ DumpActorValueF
       \ GetActorValueBaseCalcC
@@ -1974,15 +2096,53 @@ syn keyword obseFunction
       \ ModActorValueModF
       \ SetActorValueModC
       \ SetActorValueModF
+" }}}
+
+" memoryDumperFunction {{{
+syn keyword memoryDumperFunction
       \ SetDumpAddr
       \ SetDumpType
       \ SetFadeAmount
       \ SetObjectAddr
       \ ShowMemoryDump
+" }}}
+
+" algoholFunction {{{
+syn keyword algoholFunction
+      \ QFromAxisAngle
+      \ QFromEuler
+      \ QInterpolate
+      \ QMultQuat
+      \ QMultVector3
+      \ QNormalize
+      \ QToEuler
+      \ V3Crossproduct
+      \ V3Length
+      \ V3Normalize
+" }}}
+
+" soundCommandsFunction {{{
+syn keyword soundCommandsFunction
+      \ FadeMusic
+      \ GetEffectsVolume
+      \ GetFootVolume
+      \ GetMasterVolume
+      \ GetMusicVolume
+      \ GetVoiceVolume
+      \ PlayMusicFile
+      \ SetEffectsVolume
+      \ SetFootVolume
+      \ SetMasterVolume
+      \ SetMusicVolume
+      \ SetVoiceVolume
+" }}}
+
+" emcFunction {{{
+syn keyword emcFunction
       \ emcAddPathToPlaylist
       \ emcCreatePlaylist
-      \ emcGetAfterBattleDelay
       \ emcGetAllPlaylists
+      \ emcGetAfterBattleDelay
       \ emcGetBattleDelay
       \ emcGetEffectsVolume
       \ emcGetFadeTime
@@ -1995,8 +2155,8 @@ syn keyword obseFunction
       \ emcGetPauseTime
       \ emcGetPlaylist
       \ emcGetPlaylistTracks
-      \ emcGetTrackDuration
       \ emcGetTrackName
+      \ emcGetTrackDuration
       \ emcGetTrackPosition
       \ emcGetVoiceVolume
       \ emcIsBattleOverridden
@@ -2008,8 +2168,8 @@ syn keyword obseFunction
       \ emcMusicRestart
       \ emcMusicResume
       \ emcMusicStop
-      \ emcPlayTrack
       \ emcPlaylistExists
+      \ emcPlayTrack
       \ emcRestorePlaylist
       \ emcSetAfterBattleDelay
       \ emcSetBattleDelay
@@ -2021,12 +2181,83 @@ syn keyword obseFunction
       \ emcSetMaxRestoreTime
       \ emcSetMusicHold
       \ emcSetMusicSpeed
-      \ emcSetMusicType
       \ emcSetMusicVolume
       \ emcSetPauseTime
       \ emcSetPlaylist
       \ emcSetTrackPosition
+      \ emcSetMusicType
       \ emcSetVoiceVolume
+" }}}
+
+" vipcxjFunction {{{
+syn keyword vipcxjFunction
+      \ vcAddMark
+      \ vcGetFilePath
+      \ vcGetHairColorRGB
+      \ vcGetValueNumeric
+      \ vcGetValueString
+      \ vcIsMarked
+      \ vcPrintIni
+      \ vcSetActorState
+      \ vcSetHairColor
+      \ vcSetHairColorRGB
+      \ vcSetHairColorRGB3P
+" }}}
+
+" cameraCommandsFunction {{{
+syn keyword cameraCommandsFunction
+      \ CameraGetRef
+      \ CameraLookAt
+      \ CameraLookAtPosition
+      \ CameraMove
+      \ CameraMoveToPosition
+      \ CameraReset
+      \ CameraRotate
+      \ CameraRotateToPosition
+      \ CameraSetRef
+      \ CameraStopLook
+" }}}
+
+" obmeFunction {{{
+syn keyword obmeFunction
+      \ ClearNthEIBaseCost
+      \ ClearNthEIEffectName
+      \ ClearNthEIHandlerParam
+      \ ClearNthEIHostility
+      \ ClearNthEIIconPath
+      \ ClearNthEIResistAV
+      \ ClearNthEISchool
+      \ ClearNthEIVFXCode
+      \ CreateMgef
+      \ GetMagicEffectHandlerC
+      \ GetMagicEffectHandlerParamC
+      \ GetMagicEffectHostilityC
+      \ GetNthEIBaseCost
+      \ GetNthEIEffectName
+      \ GetNthEIHandlerParam
+      \ GetNthEIHostility
+      \ GetNthEIIconPath
+      \ GetNthEIResistAV
+      \ GetNthEISchool
+      \ GetNthEIVFXCode
+      \ ResolveMgefCode
+      \ SetMagicEffectHandlerC
+      \ SetMagicEffectHandlerIntParamC
+      \ SetMagicEffectHandlerRefParamC
+      \ SetMagicEffectHostilityC
+      \ SetNthEIBaseCost
+      \ SetNthEIEffectName
+      \ SetNthEIHandlerIntParam
+      \ SetNthEIHandlerRefParam
+      \ SetNthEIHostility
+      \ SetNthEIIconPath
+      \ SetNthEIResistAV
+      \ SetNthEISchool
+      \ SetNthEIVFXCode
+" }}}
+
+" conscribeFunction {{{
+syn keyword conscribeFunction
       \ DeleteLinesFromLog
       \ GetLogLineCount
       \ GetRegisteredLogNames
@@ -2034,6 +2265,58 @@ syn keyword obseFunction
       \ RegisterLog
       \ Scribe
       \ UnregisterLog
+" }}}
+
+" systemDialogFunction {{{
+syn keyword systemDialogFunction
+      \ Sysdlg_Browser
+      \ Sysdlg_ReadBrowser
+      \ Sysdlg_TextInput
+" }}}
+
+" csiFunction {{{
+syn keyword csiFunction
+      \ ClearSpellIcon
+      \ HasAssignedIcon
+      \ OverwriteSpellIcon
+      \ SetSpellIcon
+" }}}
+
+" haelFunction {{{
+syn keyword haelFunction
+      \ GetHUDActiveEffectLimit
+      \ SetHUDActiveEffectLimit
+" }}}
+
+" lcdFunction {{{
+syn keyword lcdFunction
+      \ lcd_addinttobuffer
+      \ lcd_addtexttobuffer
+      \ lcd_clearrect
+      \ lcd_cleartextbuffer
+      \ lcd_close
+      \ lcd_drawcircle
+      \ lcd_drawgrid
+      \ lcd_drawint
+      \ lcd_drawline
+      \ lcd_drawprogressbarh
+      \ lcd_drawprogressbarv
+      \ lcd_drawprogresscircle
+      \ lcd_drawrect
+      \ lcd_drawtext
+      \ lcd_drawtextbuffer
+      \ lcd_drawtexture
+      \ lcd_flush
+      \ lcd_getbuttonstate
+      \ lcd_getheight
+      \ lcd_getwidth
+      \ lcd_ismulti
+      \ lcd_isopen
+      \ lcd_open
+      \ lcd_refresh
+      \ lcd_savebuttonsnapshot
+      \ lcd_scale
+      \ lcd_setfont
 " }}}
 
 
