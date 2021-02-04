@@ -309,6 +309,28 @@ function! ShowFloatLog()
         call nvim_buf_set_keymap(s:buf, 'n', key, ':call OV_Main(3)<CR>', { 
               \'noremap' : v:true, 'nowait' : v:true, 'silent' : v:true})
       endfor
+    " vim support
+    else
+      " call prop_type_add('popupMarker', {})
+      let lnum = 1
+      let col = 1 
+      let len = 10 
+      let s:propId = 90
+      if g:ov_window_style ==? 'single'
+        let l:border = ['─', '│', '─', '│', '┌', '┐', '┘', '└']
+      elseif g:ov_window_style ==? 'double'
+        let l:border = ['═','║','═','║','╔','╗','╝','╚']
+      endif
+      let winid = popup_atcursor(l:matched_line, #{
+            \ pos: 'topleft',
+            \ textpropid: s:propId,
+            \ border: [2,2,2,2],
+            \ borderchars: l:border,
+            \ padding: [0,1,0,1],
+            \ })
+      call win_execute(winid, 'syntax enable')
+      call setbufvar(winbufnr(winid), '&syntax', 'ob_log')
+      " TODO add time for vim
     endif
   endif
 endfunction
