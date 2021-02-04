@@ -28,12 +28,6 @@ elseif g:ov_window_style !=? 'single' || g:ov_window_style !=? 'double'
 endif
 " }}}
 
-" set default border style {{{
-if !exists("g:ov_gui_background")
-  let g:ov_gui_background = 'Black'
-endif
-" }}}
-
 " set sign text defaults {{{
 if !exists("g:ov_error_sign")
   let g:ov_error_sign = "=>"
