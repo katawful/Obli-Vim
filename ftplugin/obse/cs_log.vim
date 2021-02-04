@@ -28,6 +28,12 @@ elseif g:ov_window_style !=? 'single' || g:ov_window_style !=? 'double'
 endif
 " }}}
 
+" set default border style {{{
+if !exists("g:ov_gui_background")
+  let g:ov_gui_background = 'Black'
+endif
+" }}}
+
 " set sign text defaults {{{
 if !exists("g:ov_error_sign")
   let g:ov_error_sign = "=>"
@@ -290,7 +296,7 @@ function! ShowFloatLog()
       let s:buf = nvim_create_buf(v:false,v:true)
       call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
       let win = nvim_open_win(s:buf, v:true, opts)
-      hi LogWindowBackground ctermbg=8 ctermfg=15
+      execute 'hi LogWindowBackground ctermbg=8 guibg='. g:ov_gui_background
       call nvim_buf_set_option(s:buf, 'syntax', 'ob_log')
       call nvim_win_set_option(win, 'winhl', 'Normal:LogWindowBackground')
       let win = win_getid(win)
@@ -311,11 +317,6 @@ function! ShowFloatLog()
       endfor
     " vim support
     else
-      " call prop_type_add('popupMarker', {})
-      let lnum = 1
-      let col = 1 
-      let len = 10 
-      let s:propId = 90
       if g:ov_window_style ==? 'single'
         let l:border = ['─', '│', '─', '│', '┌', '┐', '┘', '└']
       elseif g:ov_window_style ==? 'double'
@@ -327,10 +328,11 @@ function! ShowFloatLog()
             \ border: [2,2,2,2],
             \ borderchars: l:border,
             \ padding: [0,1,0,1],
+            \ highlight: 'LogWindowBackground',
             \ })
       call win_execute(winid, 'syntax enable')
+      execute 'hi LogWindowBackground ctermbg=8 guibg='. g:ov_gui_background
       call setbufvar(winbufnr(winid), '&syntax', 'ob_log')
-      " TODO add time for vim
     endif
   endif
 endfunction
