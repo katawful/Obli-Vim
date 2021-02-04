@@ -296,9 +296,8 @@ function! ShowFloatLog()
       let s:buf = nvim_create_buf(v:false,v:true)
       call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
       let win = nvim_open_win(s:buf, v:true, opts)
-      execute 'hi LogWindowBackground ctermbg=8 guibg='. g:ov_gui_background
       call nvim_buf_set_option(s:buf, 'syntax', 'ob_log')
-      call nvim_win_set_option(win, 'winhl', 'Normal:LogWindowBackground')
+      call nvim_win_set_option(win, 'winhl', 'Normal:Pmenu')
       let win = win_getid(win)
       call nvim_win_set_cursor(win, [2,4])
 
@@ -317,21 +316,21 @@ function! ShowFloatLog()
       endfor
     " vim support
     else
-      if g:ov_window_style ==? 'single'
+      if g:ov_window_style ==? 'single' && has("gui_running") !=? v:true
         let l:border = ['─', '│', '─', '│', '┌', '┐', '┘', '└']
-      elseif g:ov_window_style ==? 'double'
+      elseif g:ov_window_style ==? 'double' || has("gui_running") ==? v:true
         let l:border = ['═','║','═','║','╔','╗','╝','╚']
       endif
+      let s:propId = 90
       let winid = popup_atcursor(l:matched_line, #{
             \ pos: 'topleft',
             \ textpropid: s:propId,
             \ border: [2,2,2,2],
             \ borderchars: l:border,
             \ padding: [0,1,0,1],
-            \ highlight: 'LogWindowBackground',
+            \ highlight: 'Pmenu',
             \ })
       call win_execute(winid, 'syntax enable')
-      execute 'hi LogWindowBackground ctermbg=8 guibg='. g:ov_gui_background
       call setbufvar(winbufnr(winid), '&syntax', 'ob_log')
     endif
   endif
