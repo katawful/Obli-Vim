@@ -76,21 +76,27 @@ if !exists("g:ov_ShowFloatLog")
 endif
 execute 'nnoremap <buffer> ' . g:ov_ShowFloatLog . " :call OV_Main(2)<CR>"
 " }}}
+augroup ov_beginauto
+  autocmd!
+  autocmd BufWritePre <buffer> call OV_Main(7)
+augroup END
 
 " autocommands {{{
-if g:ov_disable_cse ==? 0
-  augroup ov_autocommand
-    autocmd!
-    autocmd BufWritePre *.obl call OV_Main(0)
-    autocmd BufWritePost *.obl call OV_Main(1)
-    autocmd TextChanged *.obl call OV_Main(0)
-    autocmd TextChangedI *.obl call OV_Main(0)
-  augroup END
-else
-  augroup ov_autocommand
-    autocmd 
-  augroup END
-endif
+function! OV_Autogroup(state)
+  if a:state ==? 1
+    augroup ov_autocommand
+      autocmd!
+      autocmd BufWritePre <buffer> call OV_Main(0)
+      autocmd BufWritePost <buffer> call OV_Main(1)
+      autocmd TextChanged <buffer> call OV_Main(0)
+      autocmd TextChangedI <buffer> call OV_Main(0)
+    augroup END
+  else 
+    augroup ov_autocommand
+      autocmd!
+    augroup END
+  endif 
+endfunction
 " }}}
 
 
@@ -107,6 +113,20 @@ endfunction
 function! OV_Main(sign)
   " I need to present the signs whenever the log file gets updated
   " use the sync time
+  if g:ov_disable_cse ==? 0
+    augroup ov_autocommand
+      autocmd!
+      autocmd BufWritePre <buffer> call OV_Main(0)
+      autocmd BufWritePost <buffer> call OV_Main(1)
+      autocmd TextChanged <buffer> call OV_Main(0)
+      autocmd TextChangedI <buffer> call OV_Main(0)
+    augroup END
+  else
+    augroup ov_autocommand
+      autocmd!
+    augroup END
+  endif
+
   if a:sign ==? 0
     " NOTE: we add a logcheck for each one that needs it
     " not sure if most efficient
