@@ -323,6 +323,7 @@ function! ShowFloatLog()
             \ borderchars: l:border,
             \ padding: [0,1,0,1],
             \ highlight: 'Pmenu',
+            \ close: 'click',
             \ })
       call win_execute(winid, 'syntax enable')
       call setbufvar(winbufnr(winid), '&syntax', 'ob_log')
