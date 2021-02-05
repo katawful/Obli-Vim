@@ -37,6 +37,12 @@ if !exists("g:ov_info_sign")
 endif 
 " }}}
 
+" set disable log default {{{
+if !exists("g:ov_disable_cse")
+  let g:ov_disable_cse = 0
+endif 
+" }}}
+
 " set sign jump maps defaults {{{
 if !exists("g:ov_JumpNextError")
   let g:ov_JumpNextError = '<C-a>en'
@@ -72,13 +78,15 @@ execute 'nnoremap <buffer> ' . g:ov_ShowFloatLog . " :call OV_Main(2)<CR>"
 " }}}
 
 " autocommands {{{
-augroup ov_autocommand
-  autocmd!
-  autocmd BufWritePre *.obl call OV_Main(0)
-  autocmd BufWritePost *.obl call OV_Main(1)
-  autocmd TextChanged *.obl call OV_Main(0)
-  autocmd TextChangedI *.obl call OV_Main(0)
-augroup END
+if g:ov_disable_cse ==? 0
+  augroup ov_autocommand
+    autocmd!
+    autocmd BufWritePre *.obl call OV_Main(0)
+    autocmd BufWritePost *.obl call OV_Main(1)
+    autocmd TextChanged *.obl call OV_Main(0)
+    autocmd TextChangedI *.obl call OV_Main(0)
+  augroup END
+endif
 " }}}
 
 
