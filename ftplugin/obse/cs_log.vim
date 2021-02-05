@@ -86,6 +86,10 @@ if g:ov_disable_cse ==? 0
     autocmd TextChanged *.obl call OV_Main(0)
     autocmd TextChangedI *.obl call OV_Main(0)
   augroup END
+else
+  augroup ov_autocommand
+    autocmd 
+  augroup END
 endif
 " }}}
 
