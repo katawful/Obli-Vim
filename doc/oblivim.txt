@@ -14,17 +14,19 @@ CONTENTS                                                    *oblivim-contents*
 
      1. Introduction |oblivim-intro|
      2. Usage |oblivim-usage|
+     3. Options |oblivim-options|
 
 ==============================================================================
-Section 1: Introduction *oblivim-intro*
+Section 1: Introduction                                        *oblivim-intro*
 
-OBScript is an internal scripting language for end mod developers. It is a
-relatively simple language, and the vanilla function and feature set is
-laughable for any modern game oriented language like Papyrus or Unity's C#
-based language. OBSE, the Oblivion Script Extender, does exactly that and
-provides a whole new host of features for mod developers. The list of new
-features is broad. This increases the complexity in mods, and the Oblivion
-development tool, the Construction Set, is unfit for this new complexity.
+OBScript is an internal scripting language for end mod developers for the game
+Oblivion. It is a relatively simple language, and the vanilla function and
+feature set is laughable for any modern game oriented language like Bethesda's
+Papyrus or Unity's C# based language. OBSE, the Oblivion Script Extender, does
+exactly that and provides a whole new host of features for mod developers. The
+list of new features is broad. This increases the complexity in mods, and the
+Oblivion development tool, the Construction Set, is unfit for this new
+complexity.
 
 The Construction Set Extender, by shademe and others, brings a whole host of
 new features, and the most important one is a true IDE for OBScript. It allows
@@ -46,7 +48,7 @@ support. By default this support is expected, but |g:ov_disable_cse| can be
 set to `1` if this support is not desired
 
 ------------------------------------------------------------------------------
-Section 1a: ScriptSync Support                            *oblivim-scriptsync*
+Section 2a: ScriptSync Support                            *oblivim-scriptsync*
 
 ScriptSync is a feature of Construction Set Extender that allows for external
 text editor support with the IDE features provided by CSE. The support is
@@ -84,6 +86,20 @@ uses them to display the log information provided at any line that has a
 |oblivim-signs|. The control of this is handled by |g:ov_ShowFloatLog|, and
 styles are handled by |g:ov_window_style|.
 
+------------------------------------------------------------------------------
+Section 2b: Core Features                              *oblivim-core-features*
+
+*oblivim-indent*
+Indentation is supported with this plugin. While OBScript does not care about
+indentation at all, it can be beneficial for visual reasons. This plugin
+indents on any change in block level. `Begin`/`End` blocks are core blocks,
+everything inside is indented by one. Script blocks like conditionals and
+loops are also indented. Non-block type features like variable declaration and
+scriptname are always at column 0. There are no options for this feature, if
+you wish to disable it set  `indentexpr` to nothing for this filetype.
+
+*oblivim-
+
 ==============================================================================
 Section 3: Options                                           *oblivim-options*
 
@@ -113,4 +129,37 @@ NOTE: gVim users are currently forced to use '`double`'.
 Accepted values: '`single`' or '`double`'
 Defaults: '`single`'
 
-*g:ov_
+*g:ov_ShowFloatLog*
+Normal mode mapping that shows the |oblivim-window|.
+Accepted values: Any free normal mode map
+Default: `<C-a>l`
+
+*g:ov_JumpNextError*
+Normal mode mapping that jumps to the next error |oblivim-signs|.
+Accepted values: Any free normal mode map
+Default: `<C-a>en`
+
+*g:ov_JumpPrevError*
+Normal mode mapping that jumps to the previous error |oblivim-signs|.
+Accepted values: Any free normal mode map
+Default: `<C-a>ep`
+
+*g:ov_JumpNextInfo*
+Normal mode mapping that jumps to the next info |oblivim-signs|.
+Accepted values: Any free normal mode map
+Default: `<C-a>in`
+
+*g:ov_JumpPrevInfo*
+Normal mode mapping that jumps to the previous info |oblivim-signs|.
+Accepted values: Any free normal mode map
+Default: `<C-a>ip`
+
+*g:ov_JumpNextAll*
+Normal mode mapping that jumps to the next |oblivim-signs|.
+Accepted values: Any free normal mode map
+Default: `<C-a>n`
+
+*g:ov_JumpPrevAll*
+Normal mode mapping that jumps to the previous |oblivim-signs|.
+Accepted values: Any free normal mode map
+Default: `<C-a>p`
