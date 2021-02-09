@@ -45,22 +45,22 @@ endif
 
 " set sign jump maps defaults {{{
 if !exists("g:ov_JumpNextError")
-  let g:ov_JumpNextError = '<C-a>en'
+  let g:ov_JumpNextError = '\en'
 endif
 if !exists("g:ov_JumpPrevError")
-  let g:ov_JumpPrevError = '<C-a>ep'
+  let g:ov_JumpPrevError = '\ep'
 endif
 if !exists("g:ov_JumpNextInfo")
-  let g:ov_JumpNextInfo = '<C-a>in'
+  let g:ov_JumpNextInfo = '\in'
 endif
 if !exists("g:ov_JumpPrevInfo")
-  let g:ov_JumpPrevInfo = '<C-a>ip'
+  let g:ov_JumpPrevInfo = '\ip'
 endif
 if !exists("g:ov_JumpNextAll")
-  let g:ov_JumpNextAll = '<C-a>n'
+  let g:ov_JumpNextAll = '\n'
 endif
 if !exists("g:ov_JumpPrevAll")
-  let g:ov_JumpPrevAll = '<C-a>p'
+  let g:ov_JumpPrevAll = '\p'
 endif
 execute 'nnoremap <buffer> ' . g:ov_JumpNextError . " :call obse#scriptsync#JumpSigns('error','next')<CR>"
 execute 'nnoremap <buffer> ' . g:ov_JumpPrevError . " :call obse#scriptsync#JumpSigns('error','prev')<CR>"
@@ -72,7 +72,7 @@ execute 'nnoremap <buffer> ' . g:ov_JumpPrevAll . " :call obse#scriptsync#JumpSi
 
 " set show floating window defaults {{{
 if !exists("g:ov_ShowFloatLog")
-  let g:ov_ShowFloatLog = '<C-a>l'
+  let g:ov_ShowFloatLog = '\l'
 endif
 execute 'nnoremap <buffer> ' . g:ov_ShowFloatLog . " :call OV_Main(2)<CR>"
 " }}}
