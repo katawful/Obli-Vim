@@ -1,190 +1,8 @@
-" Look for NeoVim support {{{
-if has('nvim')
-  let g:ov_nvim_support = 1
-else
-  let g:ov_nvim_support = 0
-endif
-" }}}
-
-" set default sync time {{{
-if !exists("g:ov_sync_time")
-  let g:ov_sync_time = 3
-elseif g:ov_sync_time < 1 || type(g:ov_sync_time) == type(0.0)
-  echohl Error
-  echomsg "Error: g:ov_sync_time is not a valid integer, defaulting to 3"
-  echohl None
-  let g:ov_sync_time = 3
-endif
-" }}}
-
-" set default border style {{{
-if !exists("g:ov_window_style")
-  let g:ov_window_style = 'single'
-elseif g:ov_window_style !=? 'single' || g:ov_window_style !=? 'double'
-  echohl Error
-  echomsg "Error: g:ov_window_style is not a valid setting, setting to default value ('single')"
-  echohl None
-  let g:ov_window_style = 'single'
-endif
-" }}}
-
-" set sign text defaults {{{
-if !exists("g:ov_error_sign")
-  let g:ov_error_sign = "=>"
-endif 
-if !exists("g:ov_info_sign")
-  let g:ov_info_sign = "=>"
-endif 
-" }}}
-
-" set disable log default {{{
-if !exists("g:ov_disable_cse")
-  let g:ov_disable_cse = 0
-endif 
-" }}}
-
-" set sign jump maps defaults {{{
-if !exists("g:ov_JumpNextError")
-  let g:ov_JumpNextError = '<C-a>en'
-endif
-if !exists("g:ov_JumpPrevError")
-  let g:ov_JumpPrevError = '<C-a>ep'
-endif
-if !exists("g:ov_JumpNextInfo")
-  let g:ov_JumpNextInfo = '<C-a>in'
-endif
-if !exists("g:ov_JumpPrevInfo")
-  let g:ov_JumpPrevInfo = '<C-a>ip'
-endif
-if !exists("g:ov_JumpNextAll")
-  let g:ov_JumpNextAll = '<C-a>n'
-endif
-if !exists("g:ov_JumpPrevAll")
-  let g:ov_JumpPrevAll = '<C-a>p'
-endif
-execute 'nnoremap <buffer> ' . g:ov_JumpNextError . " :call JumpSign('error','next')<CR>"
-execute 'nnoremap <buffer> ' . g:ov_JumpPrevError . " :call JumpSign('error','prev')<CR>"
-execute 'nnoremap <buffer> ' . g:ov_JumpNextInfo . " :call JumpSign('info','next')<CR>"
-execute 'nnoremap <buffer> ' . g:ov_JumpPrevInfo . " :call JumpSign('info','prev')<CR>"
-execute 'nnoremap <buffer> ' . g:ov_JumpNextAll . " :call JumpSign('all','next')<CR>"
-execute 'nnoremap <buffer> ' . g:ov_JumpPrevAll . " :call JumpSign('all','prev')<CR>"
-" }}}
-
-" set show floating window defaults {{{
-if !exists("g:ov_ShowFloatLog")
-  let g:ov_ShowFloatLog = '<C-a>l'
-endif
-execute 'nnoremap <buffer> ' . g:ov_ShowFloatLog . " :call OV_Main(2)<CR>"
-" }}}
-augroup ov_beginauto
-  autocmd!
-  autocmd BufWritePre <buffer> call OV_Main(7)
-augroup END
-
-" autocommands {{{
-function! OV_Autogroup(state)
-  if a:state ==? 1
-    augroup ov_autocommand
-      autocmd!
-      autocmd BufWritePre <buffer> call OV_Main(0)
-      autocmd BufWritePost <buffer> call OV_Main(1)
-      autocmd TextChanged <buffer> call OV_Main(0)
-      autocmd TextChangedI <buffer> call OV_Main(0)
-    augroup END
-  else 
-    augroup ov_autocommand
-      autocmd!
-    augroup END
-  endif 
-endfunction
-" }}}
-
-
-" Sign function {{{
-" this exists so we can pass off sign creation to a timer
-" using sleep() stops vim from working
-function OV_Sign(timer)
-  call AddSign()
-  redraw
-endfunction
-" }}}
-
-" Main {{{
-function! OV_Main(sign)
-  " I need to present the signs whenever the log file gets updated
-  " use the sync time
-  if g:ov_disable_cse ==? 0
-    augroup ov_autocommand
-      autocmd!
-      autocmd BufWritePre <buffer> call OV_Main(0)
-      autocmd BufWritePost <buffer> call OV_Main(1)
-      autocmd TextChanged <buffer> call OV_Main(0)
-      autocmd TextChangedI <buffer> call OV_Main(0)
-    augroup END
-  else
-    augroup ov_autocommand
-      autocmd!
-    augroup END
-  endif
-
-  if a:sign ==? 0
-    " NOTE: we add a logcheck for each one that needs it
-    " not sure if most efficient
-    if LogCheck() ==? 0
-      return 0
-    else
-      call UnSign()
-      redraw
-    endif
-  elseif a:sign ==? 1
-    " add timer so we don't read an unupdated log file
-    if LogCheck() ==? 0
-      return 0
-    else
-      let timer = timer_start(((g:ov_sync_time * 1000) + 50), 'OV_Sign')
-    endif
-  " show log line
-  elseif a:sign ==? 2
-    if LogCheck() ==? 0
-      return 0
-    else
-      call ShowFloatLog()
-    endif
-  elseif a:sign ==? 3
-    if g:ov_nvim_support ==? 1
-      call CloseFloatLogNV()
-    endif
-  endif
-
-endfunction
-" }}}
-
-" Show the log {{{
-" TODO: Delete???
-function! ShowCSLog()
-    " open up log file and stuff
-    if LogCheck() ==? 1
-      " create and draw buffer
-      let l:log_file = GetLogFile()
-      execute 'below split ' . l:log_file
-      let l:lines = line('$')
-      setlocal filetype=ob_log
-      set nomodifiable
-      execute 'resize ' . l:lines
-      redraw
-
-      " maps to close buffer easily
-      nnoremap <buffer> <Esc> :bd<CR>
-      nnoremap <buffer> <Space> :bd<CR>
-      nnoremap <buffer> <C-[> :bd<CR>
-    endif
-endfunction
-" }}}
+echomsg "Autoloading..."
 
 " Add sign {{{
-function! AddSign()
-
-  let l:list = ParseLogFile()
+function! obse#scriptsync#AddSign()
+  let l:list = obse#scriptsync#ParseLogFile()
   " define error sign for number of error
   let l:error = get(l:list, 0, 'default')
   let l:info = get(l:list, 1, 'default')
@@ -210,19 +28,19 @@ endfunction
 " }}}
 
 " Unsign {{{
-function! UnSign()
+function! obse#scriptsync#UnSign()
   " unsign all signs
   call sign_unplace("*")
 endfunction
 " }}}
 
 " Parse log file {{{
-function! ParseLogFile()
+function! obse#scriptsync#ParseLogFile()
   " these are set to -1 instead of blank
   " not sure why this was needed
   let l:e_output = ['-1']
   let l:i_output = ['-1']
-  let name = GetLogFile()
+  let name = obse#scriptsync#GetLogFile()
 
   " load log file and read each line
   let l:file = readfile(name)
@@ -246,8 +64,8 @@ endfunction
 " }}}
 
 " Extract Line from Log {{{
-function! ExtractLine()
-  let name = GetLogFile()
+function! obse#scriptsync#ExtractLine()
+  let name = obse#scriptsync#GetLogFile()
   let l:curr_line = line('.')
 
   let l:file = readfile(name)
@@ -263,8 +81,8 @@ endfunction
 " }}}
 
 " Floating window {{{
-function! ShowFloatLog()
-  let l:list = ParseLogFile()
+function! obse#scriptsync#ShowFloatLog()
+  let l:list = obse#scriptsync#ParseLogFile()
   let l:curr_line = line('.')
   let l:window_enable = 0
 
@@ -278,13 +96,13 @@ function! ShowFloatLog()
     endfor
   endfor 
 
-  let l:matched_line = ExtractLine()
+  let l:matched_line = obse#scriptsync#ExtractLine()
   let l:width = strchars(l:matched_line)
 
   " check if we even have signs
-  let l:signs_exist = GetSigns('error', 0)
+  let l:signs_exist = obse#scriptsync#GetSigns('error', 0)
   if type(l:signs_exist) ==? type(0)
-    let l:signs_exist = GetSigns('info', 0)
+    let l:signs_exist = obse#scriptsync#GetSigns('info', 0)
     if type(l:signs_exist) ==? type(0)
       let l:signs_exist = v:false
     else
@@ -365,14 +183,14 @@ endfunction
 " }}}
 
 " Close floating window -- NeoVim Support {{{
-function! CloseFloatLogNV()
+function! obse#scriptsync#CloseFloatLogNV()
   let win = win_findbuf(s:buf)
   call nvim_win_close(get(win, 0, 'default'), 0)
 endfunction
 " }}}
 
 " Get log file {{{
-function! GetLogFile()
+function! obse#scriptsync#GetLogFile()
   " trim current buffer than append '.log' to it
   let name = trim(bufname("%"), ".obl") . ".log"
   return name
@@ -380,8 +198,8 @@ endfunction
 " }}}
 
 " Check if log exists {{{
-function! LogCheck()
-  let file = GetLogFile()
+function! obse#scriptsync#LogCheck()
+  let file = obse#scriptsync#GetLogFile()
   " if file is readable it exists
   if filereadable(file)
     return 1
@@ -395,7 +213,7 @@ endfunction
 " }}}
 
 " Get signs {{{
-function! GetSigns(type, line)
+function! obse#scriptsync#GetSigns(type, line)
   let list = [] " we need an empty list to add stuff to
   if a:type ==? 'error'
     let signs_dict = sign_getplaced(bufname("%"), {'group' : 'error'})
@@ -420,7 +238,7 @@ endfunction
 " }}}
 
 " Jump to sign {{{
-function! JumpSign(type, direction)
+function! obse#scriptsync#JumpSigns(type, direction)
 
   let signs = []
 
@@ -428,7 +246,7 @@ function! JumpSign(type, direction)
   
   " get sign type
   if a:type ==? 'error'
-    let err_signs = GetSigns('error', 0)
+    let err_signs = obse#scriptsync#GetSigns('error', 0)
     if type(err_signs) ==? 0
       echohl ErrorMsg
       echo "Error: no signs available"
@@ -443,7 +261,7 @@ function! JumpSign(type, direction)
     let signs = err_signs
 
   elseif a:type ==? 'info'
-    let info_signs = GetSigns('info', 0)
+    let info_signs = obse#scriptsync#GetSigns('info', 0)
     if type(info_signs) ==? 0
       echohl ErrorMsg
       echo "Error: no signs available"
@@ -459,13 +277,13 @@ function! JumpSign(type, direction)
 
   elseif a:type ==? 'all'
     let all_signs = []
-    let err_signs = GetSigns('error', 0)
+    let err_signs = obse#scriptsync#GetSigns('error', 0)
     if type(err_signs) ==? 0
       let l:error = 0
     else
       let l:error = 1
     endif
-    let info_signs = GetSigns('info', 0)
+    let info_signs = obse#scriptsync#GetSigns('info', 0)
     if type(info_signs) ==? 0
       let l:info = 0
     else
