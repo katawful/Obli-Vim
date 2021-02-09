@@ -55,12 +55,12 @@ This plugin allows sign jumping for easy parsing of errors and information.
 By default the following maps are like so:
 
 ```
-<C-a>en " Jump to next error sign
-<C-a>ep " Jump to previous error sign
-<C-a>in " Jump to next info sign
-<C-a>ip " Jump to previous info sign
-<C-a>n " Jump to any next sign
-<C-a>p " Jump to any previous sign
+\en " Jump to next error sign
+\ep " Jump to previous error sign
+\in " Jump to next info sign
+\ip " Jump to previous info sign
+\n " Jump to any next sign
+\p " Jump to any previous sign
 ```
 These can be [changed](#global-options).
 
@@ -82,11 +82,11 @@ This plugin allows the use of floating windows to display message log info that 
 ![window](https://raw.githubusercontent.com/katawful/Obli-Vim-Assets/main/single.png)   
 These windows have syntax that allow for easier reading.
 Like signs, these require an updated log file and thus only possible when the file is written and the log is updated.
-This is called with `g:ov_ShowFloatLog` and defaults to `<C-a>l`.
+This is called with `g:ov_ShowFloatLog` and defaults to `\l`.
 This is supported on any installation of Vim/NeoVim, although there are some minor differences.
 These windows are just information, any interaction is unintended if possible.
 
-By default the mapping is `<C-a>l`, and can be changed with [`g:ov_ShowFloatLog`](#global-options)
+By default the mapping is `\l`, and can be changed with [`g:ov_ShowFloatLog`](#global-options)
 
 #### Floating Window Differences:
 Vim and NeoVim both integrated floating windows in completely different manners.
@@ -119,20 +119,20 @@ Your global `<leader` is recommended, but a `:h <LocalLeader>` for this filetype
 ## Global Options:
 A number of options can be set:
 
-Global options       | Description                                   | Default   | Options                               |
----------------------|-----------------------------------------------|-----------|---------------------------------------|
-`g:ov_disable_cse`   | Disables ScriptSync features                  | 0         | 1 or 0                                |
-`g:ov_sync_time`     | Sets the sync time to the value from CSE      | 3         | Any integer equal to script sync time |
-`g:ov_error_sign`    | Sets the error sign to one or two characters  | `=>`      | Any two characters                    |
-`g:ov_info_sign`     | Sets the info sign to one or two characters   | `=>`      | Any two characters                    |
-`g:ov_window_style`  | Sets the floating window style                | `single`  | `single` or `double`                  |
-`g:ov_ShowFloatLog`  | Show the log of the current line if available | `<C-a>l`  | Any valid mapping                     |
-`g:ov_JumpNextError` | Binding to jump to next error sign            | `<C-a>en` | Any valid mapping                     |
-`g:ov_JumpPrevError` | Binding to jump to previous error sign        | `<C-a>ep` | Any valid mapping                     |
-`g:ov_JumpNextInfo`  | Binding to jump to next info sign             | `<C-a>in` | Any valid mapping                     |
-`g:ov_JumpPrevInfo`  | Binding to jump to previous info sign         | `<C-a>ip` | Any valid mapping                     |
-`g:ov_JumpNextAll`   | Binding to jump to next all sign              | `<C-a>n`  | Any valid mapping                     |
-`g:ov_JumpPrevAll`   | Binding to jump to previous all sign          | `<C-a>p`  | Any valid mapping                     |
+Global options       | Description                                   | Default  | Options                               |
+---------------------|-----------------------------------------------|----------|---------------------------------------|
+`g:ov_disable_cse`   | Disables ScriptSync features                  | 0        | 1 or 0                                |
+`g:ov_sync_time`     | Sets the sync time to the value from CSE      | 3        | Any integer equal to script sync time |
+`g:ov_error_sign`    | Sets the error sign to one or two characters  | `=>`     | Any two characters                    |
+`g:ov_info_sign`     | Sets the info sign to one or two characters   | `=>`     | Any two characters                    |
+`g:ov_window_style`  | Sets the floating window style                | `single` | `single` or `double`                  |
+`g:ov_ShowFloatLog`  | Show the log of the current line if available | `\l`     | Any valid mapping                     |
+`g:ov_JumpNextError` | Binding to jump to next error sign            | `\en`    | Any valid mapping                     |
+`g:ov_JumpPrevError` | Binding to jump to previous error sign        | `\ep`    | Any valid mapping                     |
+`g:ov_JumpNextInfo`  | Binding to jump to next info sign             | `\in`    | Any valid mapping                     |
+`g:ov_JumpPrevInfo`  | Binding to jump to previous info sign         | `\ip`    | Any valid mapping                     |
+`g:ov_JumpNextAll`   | Binding to jump to next all sign              | `\n`     | Any valid mapping                     |
+`g:ov_JumpPrevAll`   | Binding to jump to previous all sign          | `\p`     | Any valid mapping                     |
 
 # License
 GPL v3
