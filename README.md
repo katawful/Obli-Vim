@@ -28,6 +28,8 @@ AutoSyncChanges=1
 Set `AutoSyncInterval` to an integer value above 0 that you think is appropriate.
 [`g:ov_sync_time`](#scriptsync-time) must be this value.
 
+You can disable the ScriptSync features with [`g:ov_disable_cse`](#global-options).
+
 ### ScriptSync Time:
 CSE's ScriptSync generates a log file that gets updated whenever the externally edited script file gets updated and read by CSE.
 By default, this plugin defaults to `3`.
@@ -119,6 +121,7 @@ A number of options can be set:
 
 Global options       | Description                                   | Default   | Options                               |
 ---------------------|-----------------------------------------------|-----------|---------------------------------------|
+`g:ov_disable_cse`   | Disables ScriptSync features                  | 0         | 1 or 0                                |
 `g:ov_sync_time`     | Sets the sync time to the value from CSE      | 3         | Any integer equal to script sync time |
 `g:ov_error_sign`    | Sets the error sign to one or two characters  | `=>`      | Any two characters                    |
 `g:ov_info_sign`     | Sets the info sign to one or two characters   | `=>`      | Any two characters                    |
