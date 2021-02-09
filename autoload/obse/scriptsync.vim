@@ -1,5 +1,3 @@
-echomsg "Autoloading..."
-
 " Add sign {{{
 function! obse#scriptsync#AddSign()
   let l:list = obse#scriptsync#ParseLogFile()
