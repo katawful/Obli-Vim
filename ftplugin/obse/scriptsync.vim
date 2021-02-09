@@ -62,12 +62,12 @@ endif
 if !exists("g:ov_JumpPrevAll")
   let g:ov_JumpPrevAll = '<C-a>p'
 endif
-execute 'nnoremap <buffer> ' . g:ov_JumpNextError . " :call JumpSign('error','next')<CR>"
-execute 'nnoremap <buffer> ' . g:ov_JumpPrevError . " :call JumpSign('error','prev')<CR>"
-execute 'nnoremap <buffer> ' . g:ov_JumpNextInfo . " :call JumpSign('info','next')<CR>"
-execute 'nnoremap <buffer> ' . g:ov_JumpPrevInfo . " :call JumpSign('info','prev')<CR>"
-execute 'nnoremap <buffer> ' . g:ov_JumpNextAll . " :call JumpSign('all','next')<CR>"
-execute 'nnoremap <buffer> ' . g:ov_JumpPrevAll . " :call JumpSign('all','prev')<CR>"
+execute 'nnoremap <buffer> ' . g:ov_JumpNextError . " :call obse#scriptsync#JumpSigns('error','next')<CR>"
+execute 'nnoremap <buffer> ' . g:ov_JumpPrevError . " :call obse#scriptsync#JumpSigns('error','prev')<CR>"
+execute 'nnoremap <buffer> ' . g:ov_JumpNextInfo . " :call obse#scriptsync#JumpSigns('info','next')<CR>"
+execute 'nnoremap <buffer> ' . g:ov_JumpPrevInfo . " :call obse#scriptsync#JumpSigns('info','prev')<CR>"
+execute 'nnoremap <buffer> ' . g:ov_JumpNextAll . " :call obse#scriptsync#JumpSigns('all','next')<CR>"
+execute 'nnoremap <buffer> ' . g:ov_JumpPrevAll . " :call obse#scriptsync#JumpSigns('all','prev')<CR>"
 " }}}
 
 " set show floating window defaults {{{
@@ -104,7 +104,7 @@ endfunction
 " this exists so we can pass off sign creation to a timer
 " using sleep() stops vim from working
 function OV_Sign(timer)
-  call AddSign()
+  call obse#scriptsync#AddSign()
   redraw
 endfunction
 " }}}

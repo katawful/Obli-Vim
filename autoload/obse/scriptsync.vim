@@ -1,15 +1,5 @@
 echomsg "Autoloading..."
 
-" Sign function {{{
-" this exists so we can pass off sign creation to a timer
-" using sleep() stops vim from working
-function OV_Sign(timer)
-  call obse#scriptsync#AddSign()
-  redraw
-endfunction
-" }}}
-
-
 " Add sign {{{
 function! obse#scriptsync#AddSign()
   let l:list = obse#scriptsync#ParseLogFile()
