@@ -136,36 +136,36 @@ Defaults: '`single`'
 *g:ov_ShowFloatLog*
 Normal mode mapping that shows the |oblivim-window|.
 Accepted values: Any free normal mode map
-Default: `<C-a>l`
+Default: `\l`
 
 *g:ov_JumpNextError*
 Normal mode mapping that jumps to the next error |oblivim-signs|.
 Accepted values: Any free normal mode map
-Default: `<C-a>en`
+Default: `\en`
 
 *g:ov_JumpPrevError*
 Normal mode mapping that jumps to the previous error |oblivim-signs|.
 Accepted values: Any free normal mode map
-Default: `<C-a>ep`
+Default: `\ep`
 
 *g:ov_JumpNextInfo*
 Normal mode mapping that jumps to the next info |oblivim-signs|.
 Accepted values: Any free normal mode map
-Default: `<C-a>in`
+Default: `\in`
 
 *g:ov_JumpPrevInfo*
 Normal mode mapping that jumps to the previous info |oblivim-signs|.
 Accepted values: Any free normal mode map
-Default: `<C-a>ip`
+Default: `\ip`
 
 *g:ov_JumpNextAll*
 Normal mode mapping that jumps to the next |oblivim-signs|.
 Accepted values: Any free normal mode map
-Default: `<C-a>n`
+Default: `\n`
 
 *g:ov_JumpPrevAll*
 Normal mode mapping that jumps to the previous |oblivim-signs|.
 Accepted values: Any free normal mode map
-Default: `<C-a>p`
+Default: `\p`
 
 vim:tw=78:isk=!-~,^*,^\|,^\":ts=8:noet:ft=help:norl:
