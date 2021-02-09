@@ -1,20 +1,22 @@
 *oblivim.txt* Functionality for OBScript and CSE ScriptSync support
 
-                   ____  __    ___     _    ___         
-                  / __ \/ /_  / (_)   | |  / (_)___ ___ 
-                 / / / / __ \/ / /____| | / / / __ `__ \
-                / /_/ / /_/ / / /_____/ |/ / / / / / / /
-                \____/_.___/_/_/      |___/_/_/ /_/ /_/ 
-                                        
-  Essential OBScript support including syntax highlighting, indentation,
-          and ScriptSync supported features for advanced work.
+		   ____  __    ___     _    ___         
+		  / __ \/ /_  / (_)   | |  / (_)___ ___ 
+		 / / / / __ \/ / /____| | / / / __ `__ \
+		/ /_/ / /_/ / / /_____/ |/ / / / / / / /
+		\____/_.___/_/_/      |___/_/_/ /_/ /_/ 
+
+Essential OBScript support including syntax highlighting, indentation, and
+ScriptSync supported features for advanced work.
 
 ==============================================================================
 CONTENTS                                                    *oblivim-contents*
 
-     1. Introduction |oblivim-intro|
-     2. Usage |oblivim-usage|
-     3. Options |oblivim-options|
+	1. Introduction..........................|oblivim-intro|
+	2. Usage.................................|oblivim-usage|
+	  2a. ScriptSync Support............|oblivim-scriptsync|
+	  2b. Core Features..............|oblivim-core-features|
+	3. Options.............................|oblivim-options|
 
 ==============================================================================
 Section 1: Introduction                                        *oblivim-intro*
@@ -45,7 +47,7 @@ with these files is not supported.
 
 This plugin can be used without any Construction Set Extender ScriptSync
 support. By default this support is expected, but |g:ov_disable_cse| can be
-set to `1` if this support is not desired
+set to `1` if this support is not desired.
 
 ------------------------------------------------------------------------------
 Section 2a: ScriptSync Support                            *oblivim-scriptsync*
@@ -58,14 +60,13 @@ advanced features that are desirable for more advanced development.
 This plugin was designed around a base idea of how the ScriptSync functions.
 The following values must be set in your "Construction Set Extender.ini" file:
 
-      `[BGSEE::ScriptEditor::ScriptSync]`
-      `ScriptFileExtension=.obl`
-      `AutoDeleteLogs=1`
-      `ExistingFileHandlingOp=Keep`
-      `AutoSyncInterval=3`
-      `AutoSyncChanges=1`
+  `[BGSEE::ScriptEditor::ScriptSync]`
+  `ScriptFileExtension=.obl`
+  `AutoDeleteLogs=1`
+  `ExistingFileHandlingOp=Keep`
+  `AutoSyncInterval=3`
+  `AutoSyncChanges=1`
 
-NOTE: add this to just g:ov_sync_time
 *oblivim-sync-time*
 Since CSE only provides a log file, we must sync up the processing of this
 plugin with the updating of this log file. This is handled with
@@ -98,7 +99,10 @@ loops are also indented. Non-block type features like variable declaration and
 scriptname are always at column 0. There are no options for this feature, if
 you wish to disable it set  `indentexpr` to nothing for this filetype.
 
-*oblivim-
+*oblivim-syntax*
+Full syntax highlighting is featured, using just regex. Word types are
+appropriately lined up to core Vim |hightlight-groups| to keep compatibility
+with as many colorschemes as possible.
 
 ==============================================================================
 Section 3: Options                                           *oblivim-options*
@@ -163,3 +167,5 @@ Default: `<C-a>n`
 Normal mode mapping that jumps to the previous |oblivim-signs|.
 Accepted values: Any free normal mode map
 Default: `<C-a>p`
+
+vim:tw=78:isk=!-~,^*,^\|,^\":ts=8:noet:ft=help:norl:
