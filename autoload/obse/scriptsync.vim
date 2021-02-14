@@ -190,7 +190,7 @@ endfunction
 " Get log file {{{
 function! obse#scriptsync#GetLogFile()
   " trim current buffer than append '.log' to it
-  let name = trim(bufname("%"), ".obl") . ".log"
+  let name = expand("%:r") . ".log"
   return name
 endfunction
 " }}}
