@@ -271,7 +271,7 @@ syn keyword csFunction
       \ EnablePlayerControls
       \ EquipItem
       \ EssentialDeathReload
-      \ EvaluatePackage	evp
+      \ EvaluatePackage	
       \ ForceActorValue
       \ ForceCloseOblivionGate
       \ ForceFlee
@@ -456,6 +456,7 @@ syn keyword csFunction
       \ IsXBox
       \ IsYielding
       \ Kill
+      \ KillActor
       \ KillAllActors
       \ Lock
       \ Look
@@ -505,6 +506,7 @@ syn keyword csFunction
       \ ResetInterior
       \ Resurrect
       \ Rotate
+      \ SCAOnActor
       \ SameFaction
       \ SameFactionAsPC
       \ SameRace
@@ -602,6 +604,10 @@ syn keyword csFunction
       \ WakeUpPC
       \ WhichServiceMenu
       \ Yield
+      \ evp
+      \ pms
+      \ saa
+      \ sms
 " }}}
 
 " OBSE Functions {{{
@@ -1029,6 +1035,7 @@ syn keyword obseFunction
       \ IsAlchemyItem
       \ IsAmmo
       \ IsAnimGroupPlaying
+      \ IsAnimPlaying
       \ IsApparatus
       \ IsArmor
       \ IsAttacking
