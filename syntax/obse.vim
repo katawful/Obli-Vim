@@ -789,6 +789,7 @@ syn keyword obseFunction
       \ GetCurrentSoulLevel
       \ GetCurrentWeatherID
       \ GetDebugSelection
+      \ GetDescription
       \ GetEditorSize
       \ GetEnchMenuEnchItem
       \ GetEnchMenuSoulgem
