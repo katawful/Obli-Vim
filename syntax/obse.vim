@@ -15,8 +15,8 @@ syntax case ignore
 " Regex matched objects {{{
 " these are matched with regex and thus must be set first
 syn match obseNames '\w\+'
-syn match obseVariable '\S\a\+' contained
 syn match obseScriptNameRegion '\i\+' contained
+syn match obseVariable '\w*\S' contained
 syn match obseReference '\zs\w\+\>\ze\.'
 " }}}
 
@@ -76,7 +76,7 @@ syn keyword obseToDo contained TODO todo Todo ToDo FIXME fixme NOTE note
 " Statements {{{
 syn keyword obseStatement set let nextgroup=obseVariable skipwhite
 " the second part needs to be separate as to not mess up the next group
-syn match obseStatementTwo "\<to\>" 
+syn match obseStatementTwo "\<to\>"
 syn match obseStatementTwo ":="
 " }}}
 
