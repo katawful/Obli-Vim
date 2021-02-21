@@ -343,6 +343,7 @@ syn keyword csFunction
       \ GetForceSneak
       \ GetFriendHit
       \ GetFurnitureMarkerID
+      \ GetGS
       \ GetGameSetting
       \ GetGlobalValue
       \ GetGold
@@ -1281,6 +1282,7 @@ syn keyword obseFunction
       \ RestoreIP
       \ RightShift
       \ RunBatchScript
+      \ RunScriptLine
       \ SaveIP
       \ SetActorRespawns
       \ SetActorValueC
