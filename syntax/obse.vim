@@ -44,7 +44,32 @@ syn match obseOperator "\v\|"
 " Comments and strings {{{
 setlocal commentstring=;%s
 syn region obseComment start=";" end="$" keepend fold contains=obseToDo
-syn region obseString start=/"/ end=/"/
+syn region obseString start=/"/ end=/"/ keepend fold contains=obseStringFormatting
+syn match obseStringFormatting "%g" contained
+syn match obseStringFormatting "%%" contained
+syn match obseStringFormatting "%B" contained
+syn match obseStringFormatting "%b" contained
+syn match obseStringFormatting "%c" contained
+syn match obseStringFormatting "%e" contained
+syn match obseStringFormatting "%i" contained
+syn match obseStringFormatting "%k" contained
+syn match obseStringFormatting "%n" contained
+syn match obseStringFormatting "%p" contained
+syn match obseStringFormatting "%q" contained
+syn match obseStringFormatting "%r" contained
+syn match obseStringFormatting "%v" contained
+syn match obseStringFormatting "%x" contained
+syn match obseStringFormatting "%z" contained
+syn match obseStringFormatting "%{" contained
+syn match obseStringFormatting "%}" contained
+syn match obseStringFormatting "%\d*.\d*f" contained
+syn match obseStringFormatting "% \d*.\d*f" contained
+syn match obseStringFormatting "%-\d*.\d*f" contained
+syn match obseStringFormatting "%+\d*.\d*f" contained
+syn match obseStringFormatting "%\d*.\d*e" contained
+syn match obseStringFormatting "%-\d*.\d*e" contained
+syn match obseStringFormatting "% \d*.\d*e" contained
+syn match obseStringFormatting "%+\d*.\d*e" contained
 syn keyword obseToDo contained TODO todo Todo ToDo FIXME fixme NOTE note
 " }}}
 
@@ -56,12 +81,12 @@ syn match obseStatementTwo ":="
 " }}}
 
 " Conditionals {{{
-syn match obseCondition "If" 
+syn match obseCondition "If"
 syn match obseCondition "Eval"
 syn match obseCondition "Return"
 syn match obseCondition "EndIf"
 syn match obseCondition "ElseIf"
-syn match obseCondition "Else" 
+syn match obseCondition "Else"
 " }}}
 
 " Repeat loops {{{
@@ -2326,7 +2351,7 @@ syn keyword lcdFunction
       \ lcd_scale
       \ lcd_setfont
 " }}}
-
+" }}}
 
 if !exists("did_obse_inits")
 
@@ -2336,6 +2361,7 @@ if !exists("did_obse_inits")
   hi def link obseDescBlock String
   hi def link obseComment Comment
   hi def link obseString String
+  hi def link obseStringFormatting Keyword
   hi def link obseFloat Float
   hi def link obseInt Number
   hi def link obseToDo Todo
@@ -2356,7 +2382,6 @@ if !exists("did_obse_inits")
   hi def link obseFunction Function
   hi def link obseArrayFunction Function
   hi def link pluggyFunction Function
-  hi def link obseRepeat Function
   hi def link obseStringFunction Function
   hi def link obseArrayFunction Function
   hi def link tsfcFunction Function
@@ -2382,7 +2407,6 @@ if !exists("did_obse_inits")
   hi def link csiFunction Function
   hi def link haelFunction Function
   hi def link lcdFunction Function
-  hi def link skillAttribute String
   hi def link skillAttribute String
 
 endif
