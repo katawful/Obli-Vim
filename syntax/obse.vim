@@ -746,6 +746,7 @@ syn keyword obseFunction
       \ Floor
       \ Fmod
       \ GetActiveEffectCount
+      \ GetActiveEffectCasters
       \ GetActiveMenuComponentID
       \ GetActiveMenuFilter
       \ GetActiveMenuMode
