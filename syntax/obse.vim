@@ -304,6 +304,7 @@ syn keyword csFunction
       \ ForceWeather
       \ GetActionRef
       \ GetActorValue
+      \ GetAV
       \ GetAlarmed
       \ GetAmountSoldStolen
       \ GetAngle
