@@ -20,13 +20,6 @@ syn match obseVariable '\w*\S' contained
 syn match obseReference '\zs\w\+\>\ze\.'
 " }}}
 
-" Numbers {{{
-syn match obseInt '\d\+'
-syn match obseInt '[-+]\d\+'
-syn match obseFloat '\d\+\.\d*' 
-syn match obseFloat '[-+]\d\+\.\d*'
-" }}}
-
 " Operators {{{
 syn match obseOperator "\v\*"
 syn match obseOperator "\v\-"
@@ -39,6 +32,13 @@ syn match obseOperator "\v\<"
 syn match obseOperator "\v\!"
 syn match obseOperator "\v\&"
 syn match obseOperator "\v\|"
+" }}}
+
+" Numbers {{{
+syn match obseInt '\d\+'
+syn match obseInt '[-+]\d\+'
+syn match obseFloat '\d\+\.\d*' 
+syn match obseFloat '[-+]\d\+\.\d*'
 " }}}
 
 " Comments and strings {{{
@@ -3106,7 +3106,7 @@ if !exists("did_obse_inits")
   hi def link obseBlock Conditional
   hi def link obseBlockType Structure
   hi def link obseScriptNameRegion Underlined
-  hi def link obseNames Label
+  hi def link obseNames Identifier
   hi def link obseVariable Identifier
   hi def link obseReference Special
   hi def link obseRepeat Repeat
