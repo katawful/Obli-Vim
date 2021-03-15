@@ -2,7 +2,7 @@
 " Language: OBSE Script (OBSEScript)
 " Original Creator: Ulthar Seramis
 " Maintainer: Kat
-" Latest Revision: 03 February 2021
+" Latest Revision: 15 March 2021
 
 if exists("b:current_syntax")
   finish
@@ -11,6 +11,13 @@ endif
 let b:current_syntax = 'obse'
 " obscript is case insensitive
 syntax case ignore
+
+" Statements {{{
+syn keyword obseStatement set let skipwhite
+" the second part needs to be separate as to not mess up the next group
+syn match obseStatementTwo "\<to\>"
+syn match obseStatementTwo ":="
+" }}}
 
 " Regex matched objects {{{
 " these are matched with regex and thus must be set first
@@ -73,12 +80,6 @@ syn match obseStringFormatting "%+\d*.\d*e" contained
 syn keyword obseToDo contained TODO todo Todo ToDo FIXME fixme NOTE note
 " }}}
 
-" Statements {{{
-syn keyword obseStatement set let nextgroup=obseVariable skipwhite
-" the second part needs to be separate as to not mess up the next group
-syn match obseStatementTwo "\<to\>"
-syn match obseStatementTwo ":="
-" }}}
 
 " Conditionals {{{
 syn match obseCondition "If"
