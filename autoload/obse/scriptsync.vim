@@ -28,7 +28,8 @@ endfunction
 " Unsign {{{
 function! obse#scriptsync#UnSign()
   " unsign all signs
-  call sign_unplace("*")
+  call sign_unplace("info")
+  call sign_unplace("error")
 endfunction
 " }}}
 
