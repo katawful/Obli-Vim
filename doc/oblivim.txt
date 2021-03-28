@@ -16,6 +16,7 @@ CONTENTS                                                    *oblivim-contents*
 	2. Usage.................................|oblivim-usage|
 	  2a. ScriptSync Support............|oblivim-scriptsync|
 	  2b. Core Features..............|oblivim-core-features|
+	  2c. Completion....................|oblivim-completion|
 	3. Options.............................|oblivim-options|
 
 ==============================================================================
@@ -103,6 +104,13 @@ you wish to disable it set  `indentexpr` to nothing for this filetype.
 Full syntax highlighting is featured, using just regex. Word types are
 appropriately lined up to core Vim |hightlight-groups| to keep compatibility
 with as many colorschemes as possible.
+
+------------------------------------------------------------------------------
+Section 2c: Completion                                    *oblivim-completion*
+
+Basic function completion is available through |i_CTRL-X_CTRL-U| user
+completion function. This function is not smart and will not give you the
+right syntax, only the function name if you do not know it.
 
 ==============================================================================
 Section 3: Options                                           *oblivim-options*
