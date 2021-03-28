@@ -2252,7 +2252,7 @@ syn keyword obseFunction
       \ Update3D
       \ UpdateTextInput
       \ VecMag
-      \ VecNorm 
+      \ VecNorm
       \ VectorCross
       \ VectorDot
       \ VectorMagnitude
@@ -2294,8 +2294,8 @@ syn keyword obseArrayFunction
 
 " String Functions {{{
 syn keyword obseStringFunction
-      \ Sv_ToLower
-      \ Sv_ToUpper
+      \ sv_ToLower
+      \ sv_ToUpper
       \ sv_Compare
       \ sv_Construct
       \ sv_Count
