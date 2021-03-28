@@ -10,6 +10,7 @@ g:ov_error_sign	oblivim.txt	/*g:ov_error_sign*
 g:ov_info_sign	oblivim.txt	/*g:ov_info_sign*
 g:ov_sync_time	oblivim.txt	/*g:ov_sync_time*
 g:ov_window_style	oblivim.txt	/*g:ov_window_style*
+oblivim-completion	oblivim.txt	/*oblivim-completion*
 oblivim-contents	oblivim.txt	/*oblivim-contents*
 oblivim-core-features	oblivim.txt	/*oblivim-core-features*
 oblivim-indent	oblivim.txt	/*oblivim-indent*
