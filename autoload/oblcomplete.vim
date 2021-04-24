@@ -1,4 +1,8 @@
 let s:matches="
+      \ GetBaseAV3
+      \ GetBaseAV3C
+      \ IsNaked
+      \ EventHandlerExists
       \ Activate
       \ AddAchievement
       \ AddFlames

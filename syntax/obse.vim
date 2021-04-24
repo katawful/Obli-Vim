@@ -787,6 +787,7 @@ syn keyword obseFunction
       \ EquipItemNS
       \ EquipItemSilent
       \ EquipMe
+      \ EventHandlerExist
       \ Exp
       \ FactionHasSpecialCombat
       \ FileExists
@@ -845,6 +846,8 @@ syn keyword obseFunction
       \ GetBarterItemQuantity
       \ GetBaseAV2
       \ GetBaseAV2C
+      \ GetBaseAV3
+      \ GetBaseAV3C
       \ GetBaseActorValueC
       \ GetBaseItems
       \ GetBaseObject
@@ -1545,6 +1548,7 @@ syn keyword obseFunction
       \ IsMovingForward
       \ IsMovingLeft
       \ IsMovingRight
+      \ IsNaked
       \ IsNthActiveEffectApplied
       \ IsNthEISHostile
       \ IsNthEffectItemScriptHostile
