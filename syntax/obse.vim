@@ -16,7 +16,7 @@ syntax case ignore
 syn keyword obseStatement set let skipwhite
 " the second part needs to be separate as to not mess up the next group
 syn match obseStatementTwo "\<to\>"
-syn match obseStatementTwo ":="
+syn match obseStatementThree ":="
 " }}}
 
 " Regex matched objects {{{
@@ -3096,6 +3096,7 @@ if !exists("did_obse_inits")
   let did_obse_inits = 1
   hi def link obseStatement Statement
   hi def link obseStatementTwo Statement
+  hi def link obseStatementThree Statement
   hi def link obseDescBlock String
   hi def link obseComment Comment
   hi def link obseString String
