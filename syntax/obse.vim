@@ -1288,6 +1288,7 @@ syn keyword obseFunction
       \ GetPlayerSkillAdvances
       \ GetPlayerSkillAdvancesC
       \ GetPlayerSkillUse
+      \ GetPlayerSkillUseC
       \ GetPlayerSpell
       \ GetPlayerSpellCount
       \ GetPlayersLastActivatedLoadDoor
@@ -1329,6 +1330,7 @@ syn keyword obseFunction
       \ GetServicesMask
       \ GetSigilStoneUses
       \ GetSkillGoverningAttribute
+      \ GetSkillGoverningAttributeC
       \ GetSkillSpecialization
       \ GetSkillUseIncrement
       \ GetSkillUseIncrementC
@@ -1440,6 +1442,7 @@ syn keyword obseFunction
       \ IconPathIncludes
       \ IdentityMat
       \ IncrementPlayerSkillUse
+      \ IncrementPlayerSkillUseC
       \ InsertInInputText
       \ IsActivatable
       \ IsActivator
@@ -2181,8 +2184,10 @@ syn keyword obseFunction
       \ SetScript
       \ SetSigilStoneUses
       \ SetSkillGoverningAttribute
+      \ SetSkillGoverningAttributeC
       \ SetSkillSpecialization
       \ SetSkillUseIncrement
+      \ SetSkillUseIncrementC
       \ SetSoulGemCapacity
       \ SetSoulLevel
       \ SetSpellAreaEffectIgnoresLOS

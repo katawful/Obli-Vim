@@ -1,4 +1,9 @@
 let s:matches="
+      \ SetSkillUseIncrementC
+      \ SetSkillGoverningAttributeC
+      \ GetSkillGoverningAttributeC
+      \ IncrementPlayerSkillUseC
+      \ GetPlayerSkillUseC
       \ GetBaseAV3
       \ GetBaseAV3C
       \ IsNaked
