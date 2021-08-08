@@ -2,6 +2,12 @@
 
 NeoVim/Vim plugin for Oblivion's obscript with integration into Construction Set Extender ScriptSync using pure Vimscript
 
+# DEPRECATION NOTICE
+Due to the release of NeoVim 0.5.0 and the near stability of VimL 9, this plugin no longer serves any use being based on VimL 8.
+As a result, I have deprecated this plugin.
+Nothing will change, but all bugs and features will stay as is.
+I appreciate the patience while I work on the 2 new plugins.
+
 ## Installation:
 Install with your plugin manager of choice.
 For [vim-plug](https://github.com/junegunn/vim-plug) add the following to your `.vimrc` or `init.vim`:
